@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LicitaMEI — Dispensas Eletrônicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & TOKENS ─────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:       #0a0c0f;
+  --bg2:      #111318;
+  --bg3:      #181c23;
+  --bg4:      #1f2530;
+  --bg5:      #252d3a;
+  --b1:       rgba(255,255,255,.06);
+  --b2:       rgba(255,255,255,.11);
+  --b3:       rgba(255,255,255,.18);
+  --t1:       #edf0f5;
+  --t2:       #8a93a3;
+  --t3:       #50596a;
+  --green:    #1fd98a;
+  --gbg:      rgba(31,217,138,.1);
+  --gbdr:     rgba(31,217,138,.22);
+  --amber:    #f5a623;
+  --abg:      rgba(245,166,35,.1);
+  --abdr:     rgba(245,166,35,.22);
+  --red:      #f05252;
+  --rbg:      rgba(240,82,82,.1);
+  --rbdr:     rgba(240,82,82,.22);
+  --blue:     #4f9eff;
+  --bbg:      rgba(79,158,255,.1);
+  --bbdr:     rgba(79,158,255,.22);
+  --r:        10px;
+  --rsm:      6px;
+  --rpill:    999px;
+  --shadow:   0 4px 24px rgba(0,0,0,.4);
+  --fn:       'DM Sans',sans-serif;
+  --fh:       'Syne',sans-serif;
+  --mono:     'DM Mono',monospace;
+  --nav-h:    54px;
+}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--fn);background:var(--bg);color:var(--t1);min-height:100vh;line-height:1.55}
+button{font-family:var(--fn);cursor:pointer}
+input,select{font-family:var(--fn)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px}
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.35;
+}
+#root{position:relative;z-index:1}
+
+/* ─── NAV ────────────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:200;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;
+  background:rgba(10,12,15,.85);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--b1);
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);
+  text-decoration:none;letter-spacing:-.01em;
+}
+.logo-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--green),#0ab870);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-icon svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2.5}
+.logo-badge{
+  font-family:var(--fn);font-size:10px;font-weight:500;letter-spacing:.04em;
+  background:var(--gbg);color:var(--green);border:1px solid var(--gbdr);
+  padding:2px 8px;border-radius:var(--rpill);
+}
+.nav-links{display:flex;gap:2px}
+.nav-btn{
+  display:flex;align-items:center;gap:6px;
+  font-size:13px;color:var(--t3);
+  padding:6px 12px;border-radius:var(--rsm);
+  border:none;background:transparent;transition:color .15s,background .15s;
+}
+.nav-btn svg{width:14px;height:14px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
+.nav-btn:hover{color:var(--t2);background:var(--bg3)}
+.nav-btn.active{color:var(--t1);background:var(--bg3);font-weight:500}
+
+/* ─── PAGES ──────────────────────────────────────────────── */
+.page{display:none;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:1120px;margin:0 auto;padding:24px}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+.h1{font-family:var(--fh);font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:4px}
+.sub{font-size:13px;color:var(--t2);margin-bottom:20px}
+.h2{font-family:var(--fh);font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--t1)}
+
+/* ─── CARD BASE ──────────────────────────────────────────── */
+.card{
+  background:var(--bg2);border:1px solid var(--b1);
+  border-radius:var(--r);overflow:hidden;
+}
+.card-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px 12px;border-bottom:1px solid var(--b1);
+}
+.card-title{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--fh);font-size:13px;font-weight:600;color:var(--t1);
+}
+.card-title svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;color:var(--t3)}
+.card-link{font-size:12px;color:var(--blue);background:none;border:none;transition:opacity .15s}
+.card-link:hover{opacity:.7;text-decoration:underline}
+
+/* ─── BADGES / PILLS ─────────────────────────────────────── */
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:var(--rpill);border:1px solid}
+.pill.g{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.pill.b{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
+.pill.a{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
+.pill.r{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
+.pill.neutral{background:var(--bg4);color:var(--t2);border-color:var(--b2)}
+.pill svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5}
+
+.score-chip{
+  font-family:var(--mono);font-size:12px;font-weight:500;
+  padding:3px 9px;border-radius:var(--rpill);border:1px solid;flex-shrink:0;
+}
+.score-chip.h{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.score-chip.m{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
+.score-chip.l{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0 16px;height:36px;border-radius:var(--rsm);
+  font-size:13px;font-weight:500;border:1px solid;transition:opacity .15s,transform .1s;
+}
+.btn:hover{opacity:.85}
+.btn:active{transform:scale(.98)}
+.btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5}
+.btn-green{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.btn-blue{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
+.btn-ghost{background:transparent;color:var(--t2);border-color:var(--b2)}
+.btn-sm{height:30px;padding:0 12px;font-size:12px}
+
+/* ─── ALERT BANNER ───────────────────────────────────────── */
+.alert{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 16px;margin-bottom:18px;
+  background:var(--abg);border:1px solid var(--abdr);
+  border-radius:var(--r);font-size:12px;color:var(--amber);
+}
+.alert svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
+.alert-link{margin-left:auto;color:var(--amber);background:none;border:none;font-size:12px;font-weight:500;text-decoration:underline}
+
+/* ─── STATS ROW ──────────────────────────────────────────── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.stat{
+  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
+  padding:16px 18px;cursor:pointer;transition:border-color .15s;
+}
+.stat:hover{border-color:var(--b2)}
+.stat-lbl{font-size:11px;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.stat-lbl svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.stat-val{font-family:var(--fh);font-size:28px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.stat-val.g{color:var(--green)}
+.stat-val.a{color:var(--amber)}
+.stat-sub{font-size:11px;color:var(--t3);margin-top:4px}
+
+/* ─── MAIN GRID (painel) ─────────────────────────────────── */
+.main-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:14px}
+
+/* ─── LICIT LIST ─────────────────────────────────────────── */
+.licit-item{
+  padding:12px 18px;border-bottom:1px solid var(--b1);cursor:pointer;
+  transition:background .12s;
+}
+.licit-item:last-child{border-bottom:none}
+.licit-item:hover{background:var(--bg3)}
+.licit-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.licit-title{font-size:13px;font-weight:500;color:var(--t1);line-height:1.35;flex:1}
+.licit-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.meta-tag{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:3px}
+.meta-tag svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* ─── FUNIL SIDEBAR ──────────────────────────────────────── */
+.funil-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 18px;border-bottom:1px solid var(--b1);font-size:13px;cursor:pointer;
+  transition:background .12s;
+}
+.funil-row:last-child{border-bottom:none}
+.funil-row:hover{background:var(--bg3)}
+.funil-lbl{color:var(--t2);display:flex;align-items:center;gap:8px}
+.fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.funil-n{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--t1)}
+
+/* ─── AGENDA SIDEBAR ─────────────────────────────────────── */
+.ag-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:10px 18px;border-bottom:1px solid var(--b1);cursor:pointer;
+  transition:background .12s;
+}
+.ag-item:last-child{border-bottom:none}
+.ag-item:hover{background:var(--bg3)}
+.ag-date{text-align:center;min-width:32px}
+.ag-day{font-family:var(--fh);font-size:20px;font-weight:700;line-height:1;color:var(--t1)}
+.ag-mon{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
+.ag-info{flex:1}
+.ag-title{font-size:12px;font-weight:500;color:var(--t1);margin-bottom:2px;line-height:1.3}
+.ag-sub{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:3px}
+.ag-sub svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+.ag-sub.u{color:var(--red)}
+
+/* ─── BUSCA PAGE ─────────────────────────────────────────── */
+.search-bar{display:flex;gap:8px;margin-bottom:14px}
+.search-input{
+  flex:1;background:var(--bg2);border:1px solid var(--b2);
+  border-radius:var(--r);padding:0 14px;height:40px;
+  font-size:13px;color:var(--t1);outline:none;transition:border-color .15s;
+}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--t3)}
+
+.filters-panel{
+  background:var(--bg2);border:1px solid var(--b1);
+  border-radius:var(--r);padding:14px 18px;margin-bottom:14px;
+}
+.filters-head{
+  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:6px;
+}
+.filters-head svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.filters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fg label{font-size:11px;color:var(--t2);display:block;margin-bottom:5px}
+.fg select{
+  width:100%;background:var(--bg3);border:1px solid var(--b2);
+  border-radius:var(--rsm);padding:7px 10px;
+  font-size:13px;color:var(--t1);outline:none;transition:border-color .15s;
+}
+.fg select:focus{border-color:var(--blue)}
+
+.chips-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.chip-lbl{font-size:11px;color:var(--t3)}
+.chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;padding:3px 10px;border-radius:var(--rpill);
+  border:1px solid;cursor:pointer;transition:opacity .15s;
+}
+.chip:hover{opacity:.75}
+.chip svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5}
+.chip.g{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.chip.b{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
+.chip.a{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
+.chip.x{background:transparent;color:var(--t3);border-color:var(--b2)}
+
+.results-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.res-count{font-size:13px;color:var(--t2)}
+.res-count strong{color:var(--t1)}
+.sort-row{display:flex;gap:4px}
+.sort-btn{
+  font-size:11px;padding:4px 10px;border-radius:var(--rpill);
+  border:1px solid var(--b2);background:transparent;color:var(--t3);
+  transition:all .12s;
+}
+.sort-btn:hover{color:var(--t2)}
+.sort-btn.on{background:var(--bg3);color:var(--t1);border-color:var(--b2)}
+
+/* ─── RESULT CARDS ───────────────────────────────────────── */
+.results-list{display:flex;flex-direction:column;gap:10px}
+.result-card{
+  background:var(--bg2);border:1px solid var(--b1);
+  border-radius:var(--r);padding:16px 18px;cursor:pointer;
+  transition:border-color .15s;
+}
+.result-card:hover{border-color:var(--b2)}
+.result-card.best{border-left:2px solid var(--green)}
+.rc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.rc-left{flex:1}
+.best-label{
+  font-size:10px;font-weight:600;color:var(--green);
+  display:flex;align-items:center;gap:4px;margin-bottom:5px;
+}
+.best-label svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5}
+.rc-title{font-size:14px;font-weight:500;color:var(--t1);line-height:1.35}
+.rc-score{text-align:right;flex-shrink:0}
+.score-big{font-family:var(--fh);font-size:32px;font-weight:700;line-height:1;letter-spacing:-.03em}
+.score-big.h{color:var(--green)}
+.score-big.m{color:var(--amber)}
+.score-big.l{color:var(--red)}
+.score-note{font-size:10px;color:var(--t3);margin-top:2px}
+.rc-meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.bar-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-lbl{font-size:11px;color:var(--t3);min-width:100px}
+.bar-track{flex:1;height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.bar-fill.h{background:var(--green)}
+.bar-fill.m{background:var(--amber)}
+.bar-fill.l{background:var(--red)}
+.bar-val{font-family:var(--mono);font-size:11px;color:var(--t2);min-width:85px;text-align:right}
+.rc-actions{display:flex;gap:8px}
+
+/* ─── DICA ───────────────────────────────────────────────── */
+.dica{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--bg2);border:1px solid var(--b1);
+  border-radius:var(--r);padding:14px 18px;margin-top:10px;
+}
+.dica svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;color:var(--amber);flex-shrink:0;margin-top:1px}
+.dica p{font-size:13px;color:var(--t2);line-height:1.5}
+.dica strong{color:var(--t1)}
+.dica-link{color:var(--blue);cursor:pointer;text-decoration:underline;background:none;border:none;font-size:13px;padding:0}
+
+/* ─── NEGÓCIOS ───────────────────────────────────────────── */
+.funil-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fcol{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.fcol-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 10px;border-bottom:1px solid var(--b1);
+}
+.fcol-title{font-family:var(--fh);font-size:12px;font-weight:600;color:var(--t1);display:flex;align-items:center;gap:7px}
+.fcol-n{font-family:var(--mono);font-size:10px;padding:1px 7px;border-radius:var(--rpill);background:var(--bg4);color:var(--t2)}
+.fcards{padding:10px;display:flex;flex-direction:column;gap:7px;min-height:100px}
+.fcard{
+  background:var(--bg3);border:1px solid var(--b1);border-radius:var(--rsm);
+  padding:10px 12px;cursor:pointer;transition:border-color .12s;
+}
+.fcard:hover{border-color:var(--b2)}
+.fcard-title{font-size:12px;font-weight:500;color:var(--t1);line-height:1.3;margin-bottom:6px}
+.fcard-meta{display:flex;flex-direction:column;gap:3px}
+.fcard-tag{font-size:10px;color:var(--t3);display:flex;align-items:center;gap:3px}
+.fcard-tag svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2}
+.fcard-score{font-family:var(--mono);font-size:10px;font-weight:500}
+.fcard-score.h{color:var(--green)}
+.fcard-score.m{color:var(--amber)}
+
+/* ─── ANÁLISE ────────────────────────────────────────────── */
+.analise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.ac{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:18px}
+.ac-lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+.ac-val{font-family:var(--fh);font-size:32px;font-weight:700;line-height:1;letter-spacing:-.03em;margin-bottom:4px}
+.ac-val.g{color:var(--green)}
+.ac-val.a{color:var(--amber)}
+.ac-val.b{color:var(--blue)}
+.ac-sub{font-size:11px;color:var(--t3)}
+.chart-wrap{display:flex;align-items:flex-end;gap:10px;height:110px;padding:0 0 0 4px}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
+.chart-bar{width:100%;border-radius:5px 5px 0 0;transition:height .4s}
+.chart-bar.win{background:linear-gradient(180deg,var(--green) 0%,rgba(31,217,138,.3) 100%)}
+.chart-bar.loss{background:linear-gradient(180deg,var(--red) 0%,rgba(240,82,82,.3) 100%)}
+.chart-lbl{font-size:10px;color:var(--t3)}
+.chart-n{font-family:var(--mono);font-size:10px;color:var(--t2)}
+
+/* ─── AGENDA PAGE ────────────────────────────────────────── */
+.agenda-list{display:flex;flex-direction:column;gap:8px}
+.agp-item{
+  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
+  display:flex;gap:16px;align-items:flex-start;padding:16px 18px;cursor:pointer;
+  transition:border-color .15s;
+}
+.agp-item:hover{border-color:var(--b2)}
+.agp-item.urgent{border-left:2px solid var(--red)}
+.agp-date{text-align:center;min-width:40px}
+.agp-day{font-family:var(--fh);font-size:26px;font-weight:700;line-height:1;color:var(--t1)}
+.agp-mon{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
+.agp-info{flex:1}
+.agp-title{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:4px}
+.agp-sub{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:5px}
+.agp-sub svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.agp-time{font-family:var(--mono)}
+.status-badge{
+  font-size:11px;padding:3px 10px;border-radius:var(--rpill);border:1px solid;
+  flex-shrink:0;align-self:center;
+}
+.status-badge.u{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
+.status-badge.ok{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.status-badge.n{background:var(--bg4);color:var(--t3);border-color:var(--b1)}
+
+/* ─── MODAL ──────────────────────────────────────────────── */
+.backdrop{
+  display:none;position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px;
+  animation:bdin .2s ease;
+}
+.backdrop.open{display:flex}
+@keyframes bdin{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--bg2);border:1px solid var(--b2);border-radius:14px;
+  padding:24px;width:100%;max-width:520px;box-shadow:var(--shadow);
+  animation:min .2s cubic-bezier(.16,1,.3,1);
+}
+@keyframes min{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.modal-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);line-height:1.3;flex:1;margin-right:16px}
+.modal-org{font-size:12px;color:var(--t3);margin-top:4px}
+.modal-close{background:none;border:none;font-size:22px;color:var(--t3);line-height:1;padding:0;transition:color .12s}
+.modal-close:hover{color:var(--t1)}
+.modal-score{margin-bottom:18px}
+.ms-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.ms-row span{font-size:12px;color:var(--t2)}
+.ms-row strong{font-family:var(--mono);font-size:13px}
+.ms-track{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden}
+.ms-fill{height:100%;border-radius:4px;transition:width .45s cubic-bezier(.16,1,.3,1)}
+.ms-fill.h{background:linear-gradient(90deg,var(--green),#0ab870)}
+.ms-fill.m{background:linear-gradient(90deg,var(--amber),#d4830e)}
+.ms-fill.l{background:linear-gradient(90deg,var(--red),#b83232)}
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.crit{background:var(--bg3);border-radius:var(--rsm);padding:10px 12px}
+.crit-lbl{font-size:10px;color:var(--t3);margin-bottom:4px}
+.crit-val{font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px}
+.crit-val svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5}
+.crit-val.ok{color:var(--green)}
+.crit-val.warn{color:var(--amber)}
+.modal-actions{display:flex;gap:8px}
+.modal-actions .btn{flex:1;justify-content:center;height:40px}
+
+/* ─── MEI badge ──────────────────────────────────────────── */
+.mei-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;color:var(--blue);
+  background:var(--bbg);border:1px solid var(--bbdr);
+  padding:4px 12px;border-radius:var(--rpill);
+}
+.mei-badge svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5}
+
+/* ─── EMPTY STATE ────────────────────────────────────────── */
+.empty{font-size:12px;color:var(--t3);text-align:center;padding:24px 0;font-style:italic}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:760px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .main-grid{grid-template-columns:1fr}
+  .filters-grid{grid-template-columns:1fr 1fr}
+  .funil-cols{grid-template-columns:1fr}
+  .analise-grid{grid-template-columns:1fr}
+  .wrap{padding:16px 14px}
+  .nav-btn span{display:none}
+  nav{padding:0 14px}
+}
+@media(max-width:480px){
+  .filters-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="root">
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav>
+  <a class="logo" href="#">
+    <span class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </span>
+    LicitaMEI
+    <span class="logo-badge">Dispensa Eletrônica</span>
+  </a>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="goPage('painel',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Painel</span>
+    </button>
+    <button class="nav-btn" onclick="goPage('busca',this)">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Buscar</span>
+    </button>
+    <button class="nav-btn" onclick="goPage('negocios',this)">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      <span>Negócios</span>
+    </button>
+    <button class="nav-btn" onclick="goPage('analise',this)">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Análise</span>
+    </button>
+    <button class="nav-btn" onclick="goPage('agenda',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Agenda</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ PAINEL ════════════════════════════════════════════════ -->
+<div id="page-painel" class="page active">
+<div class="wrap">
+
+  <div style="margin-bottom:20px">
+    <p style="font-size:12px;color:var(--t3);margin-bottom:4px">Bom dia! Hoje é sábado, 07 de junho de 2026.</p>
+    <h1 class="h1">Seu painel de dispensas</h1>
+    <span class="mei-badge" style="margin-top:8px;display:inline-flex">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      MEI / ME — participação exclusiva habilitada
+    </span>
+  </div>
+
+  <div class="alert">
+    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span><strong>Atenção:</strong> 2 dispensas com prazo encerrando em menos de 24h.</span>
+    <button class="alert-link" onclick="goPage('agenda',document.querySelectorAll('.nav-btn')[4])">Ver agenda →</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat" onclick="goPage('busca',document.querySelectorAll('.nav-btn')[1])">
+      <div class="stat-lbl"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Novas hoje</div>
+      <div class="stat-val g">7</div>
+      <div class="stat-sub">dispensas no seu perfil</div>
+    </div>
+    <div class="stat" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])">
+      <div class="stat-lbl"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Em andamento</div>
+      <div class="stat-val a">3</div>
+      <div class="stat-sub">no funil agora</div>
+    </div>
+    <div class="stat">
+      <div class="stat-lbl"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Valor em disputa</div>
+      <div class="stat-val" style="font-size:22px;color:var(--t1)">R$ 34k</div>
+      <div class="stat-sub">nas abertas agora</div>
+    </div>
+    <div class="stat" onclick="goPage('analise',document.querySelectorAll('.nav-btn')[3])">
+      <div class="stat-lbl"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Taxa de ganho</div>
+      <div class="stat-val g">2/5</div>
+      <div class="stat-sub">últimos 30 dias</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Dispensas recomendadas
+        </span>
+        <button class="card-link" onclick="goPage('busca',document.querySelectorAll('.nav-btn')[1])">Ver todas →</button>
+      </div>
+      <div>
+        <div class="licit-item" onclick="openModal(0)">
+          <div class="licit-row"><div class="licit-title">Aquisição de material de escritório — Prefeitura de Aracaju/SE</div><span class="score-chip h">9.1</span></div>
+          <div class="licit-meta">
+            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje 18h</span>
+            <span class="meta-tag">R$ 8.400</span>
+            <span class="pill g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ME/EPP exclusivo</span>
+            <span class="pill b">Materiais</span>
+          </div>
+        </div>
+        <div class="licit-item" onclick="openModal(1)">
+          <div class="licit-row"><div class="licit-title">Serviços de limpeza para CRAS municipal — Itabaiana/SE</div><span class="score-chip h">8.4</span></div>
+          <div class="licit-meta">
+            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3 dias</span>
+            <span class="meta-tag">R$ 12.000</span>
+            <span class="pill b">Serviços</span>
+          </div>
+        </div>
+        <div class="licit-item" onclick="openModal(2)">
+          <div class="licit-row"><div class="licit-title">Suprimentos de informática (toners, papéis) — UFS/SE</div><span class="score-chip h">7.8</span></div>
+          <div class="licit-meta">
+            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 dias</span>
+            <span class="meta-tag">R$ 15.600</span>
+            <span class="pill g">ME/EPP exclusivo</span>
+            <span class="pill b">Materiais</span>
+          </div>
+        </div>
+        <div class="licit-item" onclick="openModal(3)">
+          <div class="licit-row"><div class="licit-title">Manutenção de equipamentos de informática — Câmara Municipal/SE</div><span class="score-chip l">4.2</span></div>
+          <div class="licit-meta">
+            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 dias</span>
+            <span class="meta-tag">R$ 6.200</span>
+            <span class="pill neutral">TI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Funil atual</span>
+          <button class="card-link" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])">Detalhes →</button>
+        </div>
+        <div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#4f9eff"></span>Encontradas</span><span class="funil-n">7</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#f5a623"></span>Analisando</span><span class="funil-n">3</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#d86030"></span>Proposta enviada</span><span class="funil-n">1</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#1fd98a"></span>Ganhas</span><span class="funil-n">2</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#50596a"></span>Perdidas</span><span class="funil-n">3</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Próximos prazos</span>
+          <button class="card-link" onclick="goPage('agenda',document.querySelectorAll('.nav-btn')[4])">Agenda →</button>
+        </div>
+        <div>
+          <div class="ag-item" onclick="openModal(0)">
+            <div class="ag-date"><div class="ag-day">06</div><div class="ag-mon">Jun</div></div>
+            <div class="ag-info">
+              <div class="ag-title">Encerramento — Mat. Escritório Aracaju</div>
+              <div class="ag-sub u"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje às 18h — urgente!</div>
+            </div>
+          </div>
+          <div class="ag-item">
+            <div class="ag-date"><div class="ag-day">08</div><div class="ag-mon">Jun</div></div>
+            <div class="ag-info">
+              <div class="ag-title">Encerramento — Manutenção TI Câmara</div>
+              <div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 2 dias às 09h</div>
+            </div>
+          </div>
+          <div class="ag-item">
+            <div class="ag-date"><div class="ag-day">09</div><div class="ag-mon">Jun</div></div>
+            <div class="ag-info">
+              <div class="ag-title">Encerramento — Limpeza CRAS Itabaiana</div>
+              <div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 3 dias às 14h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ BUSCA ══════════════════════════════════════════════════ -->
+<div id="page-busca" class="page">
+<div class="wrap">
+  <h1 class="h1">Buscar dispensas</h1>
+  <p class="sub">Encontre oportunidades filtradas pelo seu perfil de MEI/ME</p>
+
+  <div class="search-bar">
+    <input class="search-input" id="search-input" type="text" placeholder="Ex: material de escritório, serviços de limpeza, suprimentos...">
+    <button class="btn btn-blue" onclick="renderResults()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Buscar
+    </button>
+  </div>
+
+  <div class="filters-panel">
+    <div class="filters-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Filtros avançados
+    </div>
+    <div class="filters-grid">
+      <div class="fg"><label>Score mínimo</label>
+        <select id="f-score" onchange="renderResults()">
+          <option value="7.5" selected>Alta pontuação (7.5+)</option>
+          <option value="5">Média pontuação (5+)</option>
+          <option value="0">Todas</option>
+        </select>
+      </div>
+      <div class="fg"><label>Estado</label>
+        <select id="f-estado" onchange="renderResults()">
+          <option value="SE" selected>Sergipe (SE)</option>
+          <option value="BA">Bahia (BA)</option>
+          <option value="AL">Alagoas (AL)</option>
+          <option value="ALL">Todos os estados</option>
+        </select>
+      </div>
+      <div class="fg"><label>Valor estimado</label>
+        <select id="f-valor" onchange="renderResults()">
+          <option value="10000">Até R$ 10 mil</option>
+          <option value="20000" selected>Até R$ 20 mil</option>
+          <option value="50000">Até R$ 50 mil</option>
+          <option value="80000">Até R$ 80 mil</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tipo de item</label>
+        <select id="f-tipo" onchange="renderResults()">
+          <option value="all" selected>Todos</option>
+          <option value="mat">Materiais</option>
+          <option value="srv">Serviços</option>
+        </select>
+      </div>
+      <div class="fg"><label>Prazo de encerramento</label>
+        <select id="f-prazo" onchange="renderResults()">
+          <option>Hoje</option>
+          <option>Próximos 3 dias</option>
+          <option selected>Próximos 7 dias</option>
+          <option>Próximos 15 dias</option>
+        </select>
+      </div>
+      <div class="fg"><label>Exclusivo ME/EPP</label>
+        <select id="f-mepp" onchange="renderResults()">
+          <option value="all">Todos</option>
+          <option value="pref" selected>Preferencialmente sim</option>
+          <option value="only">Somente exclusivos</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="chips-row">
+    <span class="chip-lbl">Filtros ativos:</span>
+    <span class="chip g"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Alta pontuação 7.5+</span>
+    <span class="chip b"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Sergipe</span>
+    <span class="chip b">Até R$ 20 mil</span>
+    <span class="chip a"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ME/EPP preferencial</span>
+    <span class="chip x" onclick="resetFilters()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Limpar</span>
+  </div>
+
+  <div class="results-head">
+    <span class="res-count"><strong id="res-count">4 dispensas</strong> encontradas</span>
+    <div class="sort-row">
+      <button class="sort-btn on" onclick="setSortResults('score',this)">Maior score</button>
+      <button class="sort-btn" onclick="setSortResults('prazo',this)">Prazo urgente</button>
+      <button class="sort-btn" onclick="setSortResults('valor',this)">Maior valor</button>
+    </div>
+  </div>
+
+  <div class="results-list" id="results-list"></div>
+
+  <div class="dica">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <p><strong>Dica para iniciante:</strong> Comece pelas dispensas com score 8+ e valor abaixo de R$ 15 mil. São mais simples, ensinam o processo e constroem seu histórico de fornecedor no PNCP.</p>
+  </div>
+</div>
+</div>
+
+<!-- ══ NEGÓCIOS ═══════════════════════════════════════════════ -->
+<div id="page-negocios" class="page">
+<div class="wrap">
+  <h1 class="h1">Funil de negócios</h1>
+  <p class="sub">Acompanhe cada dispensa do achado até o contrato</p>
+  <div class="funil-cols">
+
+    <div class="fcol">
+      <div class="fcol-head">
+        <span class="fcol-title"><span class="fdot" style="background:#4f9eff;width:8px;height:8px;border-radius:50%"></span>Encontradas</span>
+        <span class="fcol-n">7</span>
+      </div>
+      <div class="fcards">
+        <div class="fcard" onclick="openModal(2)">
+          <div class="fcard-title">Suprimentos TI — UFS/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 dias</div>
+            <div class="fcard-tag">R$ 15.600</div>
+            <div class="fcard-score h">● Score 7.8</div>
+          </div>
+        </div>
+        <div class="fcard" onclick="openModal(3)">
+          <div class="fcard-title">Manutenção TI — Câmara/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 dias</div>
+            <div class="fcard-tag">R$ 6.200</div>
+            <div class="fcard-score m">● Score 4.2</div>
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-title">Material higiene — SEMED/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>8 dias</div>
+            <div class="fcard-tag">R$ 9.200</div>
+            <div class="fcard-score h">● Score 7.6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <div class="fcol-head">
+        <span class="fcol-title"><span class="fdot" style="background:#f5a623;width:8px;height:8px;border-radius:50%"></span>Analisando</span>
+        <span class="fcol-n">3</span>
+      </div>
+      <div class="fcards">
+        <div class="fcard" onclick="openModal(0)">
+          <div class="fcard-title">Mat. escritório — Aracaju/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje 18h</div>
+            <div class="fcard-tag">R$ 8.400</div>
+            <div class="fcard-score h">● Score 9.1</div>
+          </div>
+        </div>
+        <div class="fcard" onclick="openModal(1)">
+          <div class="fcard-title">Limpeza CRAS — Itabaiana/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3 dias</div>
+            <div class="fcard-tag">R$ 12.000</div>
+            <div class="fcard-score h">● Score 8.4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <div class="fcol-head">
+        <span class="fcol-title"><span class="fdot" style="background:#d86030;width:8px;height:8px;border-radius:50%"></span>Proposta enviada</span>
+        <span class="fcol-n">1</span>
+      </div>
+      <div class="fcards">
+        <div class="fcard">
+          <div class="fcard-title">Higiene escolar — SEMED/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--amber)">Aguardando resultado</div>
+            <div class="fcard-tag">R$ 9.200</div>
+            <div class="fcard-score h">● Score 7.6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <div class="fcol-head">
+        <span class="fcol-title"><span class="fdot" style="background:#1fd98a;width:8px;height:8px;border-radius:50%"></span>Ganhas</span>
+        <span class="fcol-n">2</span>
+      </div>
+      <div class="fcards">
+        <div class="fcard">
+          <div class="fcard-title">Mat. limpeza — Prefeitura/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--green)">✓ Ganho em 02/05</div>
+            <div class="fcard-tag">R$ 7.800</div>
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-title">Papelaria — SEED/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--green)">✓ Ganho em 15/04</div>
+            <div class="fcard-tag">R$ 4.500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fcol">
+      <div class="fcol-head">
+        <span class="fcol-title"><span class="fdot" style="background:#50596a;width:8px;height:8px;border-radius:50%"></span>Perdidas</span>
+        <span class="fcol-n">3</span>
+      </div>
+      <div class="fcards">
+        <div class="fcard">
+          <div class="fcard-title">Gêneros alimentícios — IFSE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--red)">✗ Preço alto</div>
+            <div class="fcard-tag">R$ 19.800</div>
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-title">Uniformes — PM/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--red)">✗ Concorrência</div>
+            <div class="fcard-tag">R$ 11.000</div>
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="fcard-title">Equipamentos áudio — SESC/SE</div>
+          <div class="fcard-meta">
+            <div class="fcard-tag" style="color:var(--red)">✗ Sem estoque</div>
+            <div class="fcard-tag">R$ 8.400</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ ANÁLISE ════════════════════════════════════════════════ -->
+<div id="page-analise" class="page">
+<div class="wrap">
+  <h1 class="h1">Análise de desempenho</h1>
+  <p class="sub">Seu histórico e métricas dos últimos 90 dias</p>
+
+  <div class="analise-grid">
+    <div class="ac">
+      <div class="ac-lbl">Participações</div>
+      <div class="ac-val b">14</div>
+      <div class="ac-sub">dispensas disputadas</div>
+    </div>
+    <div class="ac">
+      <div class="ac-lbl">Taxa de vitória</div>
+      <div class="ac-val g">40%</div>
+      <div class="ac-sub">5 ganhas de 14 disputadas</div>
+    </div>
+    <div class="ac">
+      <div class="ac-lbl">Faturamento gerado</div>
+      <div class="ac-val a">R$42k</div>
+      <div class="ac-sub">soma dos contratos ganhos</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Dispensas ganhas por mês</span></div>
+    <div style="padding:20px 24px">
+      <div class="chart-wrap">
+        <div class="chart-col"><div class="chart-n">1</div><div class="chart-bar win" style="height:40px"></div><div class="chart-lbl">Mar</div></div>
+        <div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Abr</div></div>
+        <div class="chart-col"><div class="chart-n">3</div><div class="chart-bar win" style="height:95px"></div><div class="chart-lbl">Mai</div></div>
+        <div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Jun</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Categorias mais lucrativas</span></div>
+    <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+      <div class="bar-row"><span class="bar-lbl">Materiais</span><div class="bar-track"><div class="bar-fill h" style="width:80%"></div></div><span class="bar-val">R$ 22.000</span></div>
+      <div class="bar-row"><span class="bar-lbl">Serviços</span><div class="bar-track"><div class="bar-fill m" style="width:50%"></div></div><span class="bar-val">R$ 13.200</span></div>
+      <div class="bar-row"><span class="bar-lbl">Suprimentos TI</span><div class="bar-track"><div class="bar-fill h" style="width:28%"></div></div><span class="bar-val">R$ 7.000</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ AGENDA ════════════════════════════════════════════════ -->
+<div id="page-agenda" class="page">
+<div class="wrap">
+  <h1 class="h1">Agenda de prazos</h1>
+  <p class="sub">Todos os vencimentos e eventos das suas dispensas em andamento</p>
+
+  <div class="agenda-list">
+    <div class="agp-item urgent" onclick="openModal(0)">
+      <div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div>
+      <div class="agp-info">
+        <div class="agp-title">Encerramento — Material de escritório, Prefeitura de Aracaju/SE</div>
+        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">18:00</span> · Score 9.1 · R$ 8.400</div>
+      </div>
+      <span class="status-badge u">Urgente hoje</span>
+    </div>
+    <div class="agp-item urgent">
+      <div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div>
+      <div class="agp-info">
+        <div class="agp-title">Encerramento — Higiene escolar, SEMED/SE (proposta enviada)</div>
+        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">17:00</span> · Score 7.6 · R$ 9.200</div>
+      </div>
+      <span class="status-badge u">Urgente hoje</span>
+    </div>
+    <div class="agp-item" onclick="openModal(3)">
+      <div class="agp-date"><div class="agp-day">08</div><div class="agp-mon">Jun</div></div>
+      <div class="agp-info">
+        <div class="agp-title">Encerramento — Manutenção de informática, Câmara Municipal/SE</div>
+        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">09:00</span> · Score 4.2 · R$ 6.200</div>
+      </div>
+      <span class="status-badge n">Em 2 dias</span>
+    </div>
+    <div class="agp-item" onclick="openModal(1)">
+      <div class="agp-date"><div class="agp-day">09</div><div class="agp-mon">Jun</div></div>
+      <div class="agp-info">
+        <div class="agp-title">Encerramento — Serviços de limpeza, CRAS Itabaiana/SE</div>
+        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">14:00</span> · Score 8.4 · R$ 12.000</div>
+      </div>
+      <span class="status-badge n">Em 3 dias</span>
+    </div>
+    <div class="agp-item" onclick="openModal(2)">
+      <div class="agp-date"><div class="agp-day">12</div><div class="agp-mon">Jun</div></div>
+      <div class="agp-info">
+        <div class="agp-title">Encerramento — Suprimentos de informática, UFS/SE</div>
+        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">10:00</span> · Score 7.8 · R$ 15.600</div>
+      </div>
+      <span class="status-badge ok">Em 6 dias</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ MODAL ══════════════════════════════════════════════════ -->
+<div class="backdrop" id="backdrop" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="m-title"></div>
+        <div class="modal-org" id="m-org"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-score">
+      <div class="ms-row"><span>Score de decisão</span><strong id="m-score-txt"></strong></div>
+      <div class="ms-track"><div class="ms-fill" id="m-score-fill"></div></div>
+    </div>
+    <div class="crit-grid" id="m-criterios"></div>
+    <div class="modal-actions">
+      <button class="btn btn-green" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2]);closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Adicionar ao funil
+      </button>
+      <button class="btn btn-blue" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Ver edital
+      </button>
+      <button class="btn btn-ghost" onclick="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- #root -->
+
+<script>
+/* ─── DATA ─────────────────────────────────────────────────── */
+const licitacoes = [
+  {
+    title:'Aquisição de material de escritório',
+    org:'Prefeitura Municipal de Aracaju / SE · PNCP · Encerra hoje às 18h',
+    score:9.1,
+    criterios:[
+      {l:'Valor estimado',v:'R$ 8.400',ok:true},
+      {l:'ME/EPP exclusivo',v:'Sim',ok:true},
+      {l:'Concorrência',v:'2–3 empresas',ok:true},
+      {l:'Prazo de entrega',v:'10 dias',ok:true},
+      {l:'Margem estimada',v:'~28%',ok:true},
+      {l:'Complexidade',v:'Baixa',ok:true}
+    ]
+  },
+  {
+    title:'Serviços de limpeza para CRAS municipal',
+    org:'Prefeitura de Itabaiana / SE · PNCP · Encerra em 3 dias',
+    score:8.4,
+    criterios:[
+      {l:'Valor estimado',v:'R$ 12.000',ok:true},
+      {l:'ME/EPP exclusivo',v:'Não',ok:false},
+      {l:'Concorrência',v:'3–5 empresas',ok:true},
+      {l:'Prazo de entrega',v:'30 dias',ok:true},
+      {l:'Margem estimada',v:'~22%',ok:true},
+      {l:'Complexidade',v:'Média',ok:false}
+    ]
+  },
+  {
+    title:'Suprimentos de informática (toners, papéis)',
+    org:'Universidade Federal de Sergipe — UFS · PNCP · Encerra em 6 dias',
+    score:7.8,
+    criterios:[
+      {l:'Valor estimado',v:'R$ 15.600',ok:true},
+      {l:'ME/EPP exclusivo',v:'Sim',ok:true},
+      {l:'Concorrência',v:'2–4 empresas',ok:true},
+      {l:'Prazo de entrega',v:'15 dias',ok:true},
+      {l:'Margem estimada',v:'~20%',ok:true},
+      {l:'Complexidade',v:'Baixa',ok:true}
+    ]
+  },
+  {
+    title:'Manutenção de equipamentos de informática',
+    org:'Câmara Municipal / SE · PNCP · Encerra em 2 dias',
+    score:4.2,
+    criterios:[
+      {l:'Valor estimado',v:'R$ 6.200',ok:true},
+      {l:'ME/EPP exclusivo',v:'Não',ok:false},
+      {l:'Concorrência',v:'8+ empresas',ok:false},
+      {l:'Prazo de entrega',v:'5 dias',ok:false},
+      {l:'Margem estimada',v:'~8%',ok:false},
+      {l:'Complexidade',v:'Alta',ok:false}
+    ]
+  }
+];
+
+const allResults = [
+  {i:0,title:'Aquisição de material de escritório — Prefeitura de Aracaju/SE',score:9.1,valor:8400,dias:0,tipo:'mat',mepp:true,best:true,uf:'SE',org:'Prefeitura',margem:78,conc:85,compl:90,mTxt:'~28%',cTxt:'Baixa (2–3)',eTxt:'Baixa'},
+  {i:1,title:'Serviços de limpeza e conservação — CRAS Itabaiana/SE',score:8.4,valor:12000,dias:3,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Prefeitura',margem:62,conc:60,compl:55,mTxt:'~22%',cTxt:'Média (3–5)',eTxt:'Média'},
+  {i:2,title:'Suprimentos de informática — UFS/SE',score:7.8,valor:15600,dias:6,tipo:'mat',mepp:true,best:false,uf:'SE',org:'Federal',margem:58,conc:72,compl:80,mTxt:'~20%',cTxt:'Baixa (2–4)',eTxt:'Baixa'},
+  {i:3,title:'Material de higiene para escolas — SEMED Sergipe',score:7.6,valor:9200,dias:8,tipo:'mat',mepp:false,best:false,uf:'SE',org:'Estadual',margem:55,conc:58,compl:75,mTxt:'~18%',cTxt:'Média (4–6)',eTxt:'Baixa'},
+  {i:3,title:'Manutenção de informática — Câmara Municipal/SE',score:4.2,valor:6200,dias:2,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Câmara',margem:20,conc:15,compl:20,mTxt:'~8%',cTxt:'Alta (8+)',eTxt:'Alta'}
+];
+
+/* ─── NAVIGATION ────────────────────────────────────────────── */
+function goPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id==='busca') renderResults();
+}
+
+/* ─── MODAL ─────────────────────────────────────────────────── */
+function openModal(i) {
+  const l = licitacoes[i];
+  document.getElementById('m-title').textContent = l.title;
+  document.getElementById('m-org').textContent = l.org;
+  document.getElementById('m-score-txt').textContent = l.score.toFixed(1)+' / 10';
+  const f = document.getElementById('m-score-fill');
+  f.style.width = (l.score*10)+'%';
+  f.className = 'ms-fill '+(l.score>=7.5?'h':l.score>=5?'m':'l');
+  document.getElementById('m-criterios').innerHTML = l.criterios.map(c=>`
+    <div class="crit">
+      <div class="crit-lbl">${c.l}</div>
+      <div class="crit-val ${c.ok?'ok':'warn'}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          ${c.ok?'<polyline points="20 6 9 17 4 12"/>' :'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
+        </svg>
+        ${c.v}
+      </div>
+    </div>`).join('');
+  document.getElementById('backdrop').classList.add('open');
+}
+function closeModal(e) {
+  if(!e || e.target===document.getElementById('backdrop'))
+    document.getElementById('backdrop').classList.remove('open');
+}
+
+/* ─── BUSCA ─────────────────────────────────────────────────── */
+let currentSort = 'score';
+
+function renderResults() {
+  const minScore = parseFloat(document.getElementById('f-score').value)||0;
+  const maxValor = parseInt(document.getElementById('f-valor').value)||999999;
+  const filtered = allResults.filter(r=>r.score>=minScore && r.valor<=maxValor);
+  const sorted = [...filtered].sort((a,b)=>{
+    if(currentSort==='score') return b.score-a.score;
+    if(currentSort==='prazo') return a.dias-b.dias;
+    return b.valor-a.valor;
+  });
+  document.getElementById('res-count').textContent = sorted.length+' dispensas';
+  const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+  document.getElementById('results-list').innerHTML = sorted.map(r=>`
+    <div class="result-card ${r.best?'best':''}" onclick="openModal(${r.i})">
+      <div class="rc-top">
+        <div class="rc-left">
+          ${r.best?`<div class="best-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Melhor oportunidade do dia</div>`:''}
+          <div class="rc-title">${r.title}</div>
+        </div>
+        <div class="rc-score">
+          <div class="score-big ${r.score>=7.5?'h':r.score>=5?'m':'l'}">${r.score.toFixed(1)}</div>
+          <div class="score-note">score / 10</div>
+        </div>
+      </div>
+      <div class="rc-meta">
+        <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${r.dias===0?'Hoje':'Em '+r.dias+' dias'}</span>
+        <span class="meta-tag">R$ ${r.valor.toLocaleString('pt-BR')}</span>
+        <span class="meta-tag">${r.uf} · ${r.org}</span>
+        ${r.mepp?`<span class="pill g">${check}ME/EPP exclusivo</span>`:''}
+        <span class="pill b">${r.tipo==='mat'?'Materiais':'Serviços'}</span>
+      </div>
+      <div class="bar-rows">
+        <div class="bar-row"><span class="bar-lbl">Margem estimada</span><div class="bar-track"><div class="bar-fill ${r.margem>=60?'h':r.margem>=40?'m':'l'}" style="width:${r.margem}%"></div></div><span class="bar-val">${r.mTxt}</span></div>
+        <div class="bar-row"><span class="bar-lbl">Concorrência</span><div class="bar-track"><div class="bar-fill ${r.conc>=60?'h':r.conc>=40?'m':'l'}" style="width:${r.conc}%"></div></div><span class="bar-val">${r.cTxt}</span></div>
+        <div class="bar-row"><span class="bar-lbl">Complexidade</span><div class="bar-track"><div class="bar-fill ${r.compl>=60?'h':r.compl>=40?'m':'l'}" style="width:${r.compl}%"></div></div><span class="bar-val">${r.eTxt}</span></div>
+      </div>
+      <div class="rc-actions">
+        <button class="btn btn-green btn-sm" onclick="event.stopPropagation();openModal(${r.i})">Analisar →</button>
+        <button class="btn btn-blue btn-sm" onclick="event.stopPropagation();goPage('negocios',document.querySelectorAll('.nav-btn')[2])">+ Funil</button>
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          PNCP
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+function setSortResults(type, btn) {
+  currentSort = type;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderResults();
+}
+
+function resetFilters() {
+  document.getElementById('f-score').value = '0';
+  document.getElementById('f-valor').value = '80000';
+  renderResults();
+}
+
+renderResults();
+</script>
+</body>
+</html>
