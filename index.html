@@ -492,6 +492,47 @@ nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-ite
 .ai-error.show{display:block}
 
 @media(max-width:440px){.ai-panel{width:calc(100vw - 24px);right:12px;bottom:76px}.ai-fab{right:14px;bottom:14px}}
+
+/* ══ PNCP PAGE ══ */
+.pncp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}
+.pncp-status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t3);margin-top:6px}
+.pncp-dot{width:7px;height:7px;border-radius:50%;background:var(--t3);flex-shrink:0}
+.pncp-dot.live{background:var(--green);animation:aiping 2s infinite}
+.pncp-filters{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:14px 18px;margin-bottom:16px}
+.pncp-filters-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.pncp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.pncp-stat{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:14px 16px;text-align:center}
+.pncp-stat-val{font-family:var(--fh);font-size:24px;font-weight:700;line-height:1;margin-bottom:4px}
+.pncp-stat-val.g{color:var(--green)}
+.pncp-stat-val.a{color:var(--amber)}
+.pncp-stat-val.b{color:var(--blue)}
+.pncp-stat-lbl{font-size:11px;color:var(--t3)}
+.pncp-list{display:flex;flex-direction:column;gap:10px}
+.pncp-card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px;transition:border-color .15s}
+.pncp-card:hover{border-color:var(--b2)}
+.pncp-card.se{border-left:2px solid var(--green)}
+.pncp-card.al{border-left:2px solid var(--blue)}
+.pncp-card.ba{border-left:2px solid var(--amber)}
+.pncp-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.pncp-card-title{font-size:13px;font-weight:500;color:var(--t1);line-height:1.4;flex:1}
+.pncp-card-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.pncp-card-actions{display:flex;gap:8px}
+.uf-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--rpill);border:1px solid}
+.uf-badge.SE{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
+.uf-badge.AL{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
+.uf-badge.BA{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
+.pncp-loading{text-align:center;padding:48px 0;color:var(--t3);font-size:13px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.pncp-spinner{width:28px;height:28px;border:2px solid var(--b2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pncp-empty{text-align:center;padding:48px 0;color:var(--t3);font-size:13px}
+.pncp-empty svg{width:40px;height:40px;opacity:.3;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto}
+.pncp-pagination{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:16px}
+.pncp-pg{font-size:12px;padding:5px 12px;border-radius:var(--rsm);border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;transition:all .12s}
+.pncp-pg:hover:not(:disabled){background:var(--bg3);color:var(--t1)}
+.pncp-pg:disabled{opacity:.35;cursor:not-allowed}
+.pncp-pg.on{background:var(--bg3);color:var(--t1);font-weight:500}
+.pncp-error{background:var(--rbg);border:1px solid var(--rbdr);border-radius:var(--r);padding:14px 18px;font-size:13px;color:var(--red);display:flex;align-items:center;gap:10px}
+.pncp-error svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -510,6 +551,7 @@ nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-ite
     <button class="nav-btn" onclick="goPage('negocios',this)"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg><span>Negócios</span></button>
     <button class="nav-btn" onclick="goPage('analise',this)"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Análise</span></button>
     <button class="nav-btn" onclick="goPage('agenda',this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Agenda</span></button>
+    <button class="nav-btn" onclick="goPage('pncp',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg><span>PNCP</span></button>
   </div>
 </nav>
 
@@ -695,6 +737,91 @@ nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-ite
 </div>
 </div>
 
+<!-- ══ PNCP — DISPENSAS EM TEMPO REAL ══ -->
+<div id="page-pncp" class="page">
+<div class="wrap">
+  <div class="pncp-header">
+    <div>
+      <h1 class="h1">Dispensas eletrônicas — tempo real</h1>
+      <div class="pncp-status">
+        <span class="pncp-dot live" id="pncp-dot"></span>
+        <span id="pncp-status-txt">Conectado ao PNCP · Dados oficiais</span>
+      </div>
+    </div>
+    <button class="btn btn-green" onclick="buscarPNCP(1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      Atualizar
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="pncp-filters">
+    <div class="filters-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Filtros de busca
+    </div>
+    <div class="pncp-filters-grid">
+      <div class="fg">
+        <label>Estados</label>
+        <select id="pncp-uf" onchange="buscarPNCP(1)">
+          <option value="SE,AL,BA" selected>SE + AL + BA (todos)</option>
+          <option value="SE">Sergipe (SE) — 70%</option>
+          <option value="AL">Alagoas/Maceió (AL) — 15%</option>
+          <option value="BA">Bahia/Salvador (BA) — 15%</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Período</label>
+        <select id="pncp-periodo" onchange="buscarPNCP(1)">
+          <option value="1">Hoje</option>
+          <option value="3" selected>Últimos 3 dias</option>
+          <option value="7">Últimos 7 dias</option>
+          <option value="15">Últimos 15 dias</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Valor máximo</label>
+        <select id="pncp-valor" onchange="buscarPNCP(1)">
+          <option value="0">Todos</option>
+          <option value="20000">Até R$ 20 mil</option>
+          <option value="50000" selected>Até R$ 50 mil</option>
+          <option value="80000">Até R$ 80 mil</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Palavra-chave</label>
+        <input class="search-input" id="pncp-keyword" style="height:36px" placeholder="Ex: material, limpeza..." onkeydown="if(event.key==='Enter')buscarPNCP(1)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="pncp-stats" id="pncp-stats" style="display:none">
+    <div class="pncp-stat"><div class="pncp-stat-val g" id="ps-total">0</div><div class="pncp-stat-lbl">Dispensas encontradas</div></div>
+    <div class="pncp-stat"><div class="pncp-stat-val b" id="ps-se">0</div><div class="pncp-stat-lbl">Em Sergipe</div></div>
+    <div class="pncp-stat"><div class="pncp-stat-val a" id="ps-valor">R$ 0</div><div class="pncp-stat-lbl">Valor total estimado</div></div>
+  </div>
+
+  <!-- Lista -->
+  <div id="pncp-list">
+    <div class="pncp-loading" id="pncp-loading" style="display:none">
+      <div class="pncp-spinner"></div>
+      <span>Buscando dispensas no PNCP...</span>
+    </div>
+    <div id="pncp-cards"></div>
+    <div id="pncp-error-box" style="display:none"></div>
+  </div>
+
+  <!-- Paginação -->
+  <div class="pncp-pagination" id="pncp-pagination" style="display:none">
+    <button class="pncp-pg" id="pncp-prev" onclick="buscarPNCP(pncpPage-1)">← Anterior</button>
+    <span class="pncp-pg on" id="pncp-page-label">Pág. 1</span>
+    <button class="pncp-pg" id="pncp-next" onclick="buscarPNCP(pncpPage+1)">Próxima →</button>
+  </div>
+
+</div>
+</div>
+
 <!-- ══ MODAL ANÁLISE ══ -->
 <div class="backdrop" id="backdrop" onclick="closeModal(event)">
   <div class="modal">
@@ -804,7 +931,8 @@ function goPage(id, btn) {
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   if(id==='busca') renderResults();
-  if(id==='negocios'){renderFunil();renderFunilDetail()}
+  if(id==='negocios'){renderFunil();renderFunilDetail();}
+  if(id==='pncp') buscarPNCP(1);
 }
 
 /* ─── DATE ──────────────────────────── */
@@ -1260,7 +1388,7 @@ renderResults();
     try {
       const payload = {
         model: 'gpt-5',
-        max_tokens: 800,
+        max_completion_tokens: 800,
         messages: [
           {role:'system', content: SYSTEM},
           ...msgs.map(m => ({role: m.role, content: m.content}))
@@ -1312,6 +1440,214 @@ renderResults();
     el.style.height='auto';
     el.style.height = Math.min(el.scrollHeight, 90)+'px';
   };
+
+
+/* ══ PNCP API ══ */
+let pncpPage = 1;
+let pncpResults = [];
+let pncpTotal = 0;
+
+// Código modalidade 8 = Dispensa Eletrônica
+const PNCP_BASE = 'https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao';
+const PNCP_PROPOSTA = 'https://pncp.gov.br/api/consulta/v1/contratacoes/proposta';
+
+function getDateRange(days) {
+  const end = new Date();
+  const start = new Date();
+  start.setDate(start.getDate() - days);
+  const fmt = d => d.toISOString().slice(0,10).replace(/-/g,'');
+  return { ini: fmt(start), fim: fmt(end) };
+}
+
+async function buscarPNCP(pagina) {
+  pncpPage = pagina || 1;
+  const ufs = document.getElementById('pncp-uf').value.split(',');
+  const dias = parseInt(document.getElementById('pncp-periodo').value);
+  const maxValor = parseInt(document.getElementById('pncp-valor').value) || 0;
+  const keyword = document.getElementById('pncp-keyword').value.trim().toLowerCase();
+  const { ini, fim } = getDateRange(dias);
+
+  // Mostra loading
+  document.getElementById('pncp-loading').style.display = 'flex';
+  document.getElementById('pncp-cards').innerHTML = '';
+  document.getElementById('pncp-error-box').style.display = 'none';
+  document.getElementById('pncp-stats').style.display = 'none';
+  document.getElementById('pncp-pagination').style.display = 'none';
+  document.getElementById('pncp-dot').classList.remove('live');
+  document.getElementById('pncp-status-txt').textContent = 'Buscando no PNCP...';
+
+  try {
+    // Busca para cada UF selecionada
+    let allItems = [];
+    for (const uf of ufs) {
+      const url = `${PNCP_BASE}?dataInicial=${ini}&dataFinal=${fim}&codigoModalidadeContratacao=8&uf=${uf.trim()}&tamanhoPagina=20&pagina=${pncpPage}`;
+      try {
+        const res = await fetch(url, { headers: { 'accept': '*/*' } });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data) allItems = allItems.concat(json.data.map(d => ({...d, _uf: uf.trim()})));
+        }
+      } catch(e) { console.warn(`Erro UF ${uf}:`, e); }
+    }
+
+    document.getElementById('pncp-loading').style.display = 'none';
+
+    // Filtra por valor se necessário
+    let filtrados = allItems;
+    if (maxValor > 0) {
+      filtrados = filtrados.filter(d => {
+        const val = d.valorTotalEstimado || d.valorTotalHomologado || 0;
+        return val <= maxValor;
+      });
+    }
+
+    // Filtra por palavra-chave
+    if (keyword) {
+      filtrados = filtrados.filter(d => {
+        const obj = (d.objetoCompra || d.descricaoObjeto || '').toLowerCase();
+        return obj.includes(keyword);
+      });
+    }
+
+    // Ordena: SE primeiro, depois AL, depois BA
+    const ufOrder = { 'SE': 0, 'AL': 1, 'BA': 2 };
+    filtrados.sort((a, b) => (ufOrder[a._uf] || 0) - (ufOrder[b._uf] || 0));
+
+    pncpResults = filtrados;
+    pncpTotal = filtrados.length;
+
+    // Atualiza stats
+    const totalSE = filtrados.filter(d => d._uf === 'SE').length;
+    const valorTotal = filtrados.reduce((s, d) => s + (d.valorTotalEstimado || 0), 0);
+    document.getElementById('ps-total').textContent = pncpTotal;
+    document.getElementById('ps-se').textContent = totalSE;
+    document.getElementById('ps-valor').textContent = 'R$ ' + valorTotal.toLocaleString('pt-BR', {maximumFractionDigits:0});
+    document.getElementById('pncp-stats').style.display = 'grid';
+
+    renderPNCP(filtrados);
+
+    document.getElementById('pncp-dot').classList.add('live');
+    document.getElementById('pncp-status-txt').textContent = `Conectado ao PNCP · ${pncpTotal} dispensas encontradas · Atualizado agora`;
+
+    if (pncpTotal > 0) {
+      document.getElementById('pncp-pagination').style.display = 'flex';
+      document.getElementById('pncp-page-label').textContent = `Pág. ${pncpPage}`;
+      document.getElementById('pncp-prev').disabled = pncpPage <= 1;
+      document.getElementById('pncp-next').disabled = filtrados.length < 20;
+    }
+
+  } catch(err) {
+    document.getElementById('pncp-loading').style.display = 'none';
+    document.getElementById('pncp-error-box').style.display = 'flex';
+    document.getElementById('pncp-error-box').innerHTML = `
+      <div class="pncp-error">
+        <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <strong>Erro ao conectar com o PNCP.</strong><br>
+          <span style="font-size:12px;color:var(--t2)">O PNCP pode estar temporariamente indisponível. Tente novamente em alguns instantes ou acesse diretamente em <a href="https://pncp.gov.br" target="_blank" style="color:var(--blue)">pncp.gov.br</a></span>
+        </div>
+      </div>`;
+    document.getElementById('pncp-status-txt').textContent = 'Erro de conexão com o PNCP';
+  }
+}
+
+function renderPNCP(items) {
+  const container = document.getElementById('pncp-cards');
+  if (!items || items.length === 0) {
+    container.innerHTML = `
+      <div class="pncp-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Nenhuma dispensa encontrada com estes filtros.<br>
+        <span style="font-size:11px;margin-top:4px;display:block">Tente ampliar o período ou mudar os filtros.</span>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = items.map((d, idx) => {
+    const uf = d._uf || '??';
+    const orgao = d.orgaoEntidade?.razaoSocial || 'Órgão não informado';
+    const objeto = d.objetoCompra || d.descricaoObjeto || 'Objeto não informado';
+    const valor = d.valorTotalEstimado ? 'R$ ' + d.valorTotalEstimado.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) : 'Valor não informado';
+    const dataAbertura = d.dataAberturaProposta ? new Date(d.dataAberturaProposta).toLocaleDateString('pt-BR') : '';
+    const dataEncerra = d.dataEncerramentoProposta ? new Date(d.dataEncerramentoProposta).toLocaleDateString('pt-BR') + ' ' + new Date(d.dataEncerramentoProposta).toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}) : '';
+    const numProcesso = d.numero || d.numeroCompra || '';
+    const ano = d.anoCompra || new Date().getFullYear();
+    const seq = d.sequencialCompra || '';
+    const cnpj = d.orgaoEntidade?.cnpj || '';
+    const pncpLink = `https://pncp.gov.br/app/editais/${cnpj}/${ano}/${seq}`;
+
+    // Verifica urgência
+    let urgente = false;
+    if (d.dataEncerramentoProposta) {
+      const diff = new Date(d.dataEncerramentoProposta) - new Date();
+      urgente = diff > 0 && diff < 86400000;
+    }
+
+    const objeto_curto = objeto.length > 120 ? objeto.substring(0, 120) + '...' : objeto;
+
+    return `
+    <div class="pncp-card ${uf.toLowerCase()}" style="${urgente?'border-color:var(--amber)':''}">
+      <div class="pncp-card-top">
+        <div>
+          ${urgente ? '<div style="font-size:10px;font-weight:600;color:var(--amber);margin-bottom:4px;display:flex;align-items:center;gap:4px">⚡ Encerra em breve</div>' : ''}
+          <div class="pncp-card-title">${objeto_curto}</div>
+          <div style="font-size:11px;color:var(--t3);margin-top:4px">${orgao}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
+          <span class="uf-badge ${uf}">${uf}</span>
+          <span style="font-family:var(--mono);font-size:13px;font-weight:600;color:var(--green);white-space:nowrap">${valor}</span>
+        </div>
+      </div>
+      <div class="pncp-card-meta">
+        ${dataEncerra ? `<span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Encerra: ${dataEncerra}</span>` : ''}
+        ${numProcesso ? `<span class="meta-tag">Nº ${numProcesso}/${ano}</span>` : ''}
+        <span class="pill b">Dispensa Eletrônica</span>
+        <span class="pill neutral">Lei 14.133/2021</span>
+      </div>
+      <div class="pncp-card-actions">
+        <a href="${pncpLink}" target="_blank" class="btn btn-blue btn-sm" style="text-decoration:none">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver no PNCP
+        </a>
+        <button class="btn btn-green btn-sm" onclick="analisarComIA('${objeto_curto.replace(/'/g, "\'")}', '${orgao.replace(/'/g, "\'")}', '${valor}', '${uf}', '${dataEncerra}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Analisar com IA
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="adicionarPNCPFunil('${objeto_curto.replace(/'/g, "\'")}', ${d.valorTotalEstimado||0})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          + Funil
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function analisarComIA(objeto, orgao, valor, uf, prazo) {
+  const msg = `Analise esta dispensa eletrônica para mim:\n\nÓrgão: ${orgao}\nUF: ${uf}\nObjeto: ${objeto}\nValor estimado: ${valor}\nPrazo: ${prazo}\n\nÉ uma boa oportunidade para MEI iniciante? Vale a pena participar?`;
+  // Abre o chat da IA e preenche
+  if (!aiOpen) toggleAI();
+  document.getElementById('ai-textarea').value = msg;
+  // Scrolla até o chat
+  document.getElementById('ai-panel').scrollTop = 0;
+}
+
+function adicionarPNCPFunil(titulo, valor) {
+  const newId = Date.now();
+  funilNegocios.push({
+    id: newId,
+    titulo: titulo.substring(0, 80),
+    valor: valor,
+    score: 5.0,
+    fase: 0,
+    tasks: FASES.map(f => f.tarefas.map(() => false)),
+    notas: ['Adicionado do PNCP','','','','']
+  });
+  goPage('negocios', document.querySelectorAll('.nav-btn')[2]);
+  selectedNegocioId = newId;
+  renderFunil();
+  renderFunilDetail();
+}
+
 })();
 </script>
 
