@@ -8,169 +8,96 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET & TOKENS ─────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:       #0a0c0f;
-  --bg2:      #111318;
-  --bg3:      #181c23;
-  --bg4:      #1f2530;
-  --bg5:      #252d3a;
-  --b1:       rgba(255,255,255,.06);
-  --b2:       rgba(255,255,255,.11);
-  --b3:       rgba(255,255,255,.18);
-  --t1:       #edf0f5;
-  --t2:       #8a93a3;
-  --t3:       #50596a;
-  --green:    #1fd98a;
-  --gbg:      rgba(31,217,138,.1);
-  --gbdr:     rgba(31,217,138,.22);
-  --amber:    #f5a623;
-  --abg:      rgba(245,166,35,.1);
-  --abdr:     rgba(245,166,35,.22);
-  --red:      #f05252;
-  --rbg:      rgba(240,82,82,.1);
-  --rbdr:     rgba(240,82,82,.22);
-  --blue:     #4f9eff;
-  --bbg:      rgba(79,158,255,.1);
-  --bbdr:     rgba(79,158,255,.22);
-  --r:        10px;
-  --rsm:      6px;
-  --rpill:    999px;
-  --shadow:   0 4px 24px rgba(0,0,0,.4);
-  --fn:       'DM Sans',sans-serif;
-  --fh:       'Syne',sans-serif;
-  --mono:     'DM Mono',monospace;
-  --nav-h:    54px;
+  --bg:#0a0c0f;--bg2:#111318;--bg3:#181c23;--bg4:#1f2530;--bg5:#252d3a;
+  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.11);--b3:rgba(255,255,255,.18);
+  --t1:#edf0f5;--t2:#8a93a3;--t3:#50596a;
+  --green:#1fd98a;--gbg:rgba(31,217,138,.1);--gbdr:rgba(31,217,138,.22);
+  --amber:#f5a623;--abg:rgba(245,166,35,.1);--abdr:rgba(245,166,35,.22);
+  --red:#f05252;--rbg:rgba(240,82,82,.1);--rbdr:rgba(240,82,82,.22);
+  --blue:#4f9eff;--bbg:rgba(79,158,255,.1);--bbdr:rgba(79,158,255,.22);
+  --purple:#a78bfa;--pbg:rgba(167,139,250,.1);--pbdr:rgba(167,139,250,.22);
+  --r:10px;--rsm:6px;--rpill:999px;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --fn:'DM Sans',sans-serif;--fh:'Syne',sans-serif;--mono:'DM Mono',monospace;
+  --nav-h:54px;
 }
 html{font-size:14px;-webkit-font-smoothing:antialiased}
 body{font-family:var(--fn);background:var(--bg);color:var(--t1);min-height:100vh;line-height:1.55}
 button{font-family:var(--fn);cursor:pointer}
-input,select{font-family:var(--fn)}
+input,select,textarea{font-family:var(--fn)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px}
-
-/* ─── GRAIN OVERLAY ──────────────────────────────────────── */
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:.35;
-}
+  opacity:.35;}
 #root{position:relative;z-index:1}
 
-/* ─── NAV ────────────────────────────────────────────────── */
-nav{
-  position:sticky;top:0;z-index:200;
-  height:var(--nav-h);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;
-  background:rgba(10,12,15,.85);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--b1);
-}
-.logo{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);
-  text-decoration:none;letter-spacing:-.01em;
-}
-.logo-icon{
-  width:30px;height:30px;border-radius:8px;
-  background:linear-gradient(135deg,var(--green),#0ab870);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+/* NAV */
+nav{position:sticky;top:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(10,12,15,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--b1)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);text-decoration:none;letter-spacing:-.01em}
+.logo-icon{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--green),#0ab870);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .logo-icon svg{width:16px;height:16px;color:#fff;fill:none;stroke:currentColor;stroke-width:2.5}
-.logo-badge{
-  font-family:var(--fn);font-size:10px;font-weight:500;letter-spacing:.04em;
-  background:var(--gbg);color:var(--green);border:1px solid var(--gbdr);
-  padding:2px 8px;border-radius:var(--rpill);
-}
+.logo-badge{font-family:var(--fn);font-size:10px;font-weight:500;letter-spacing:.04em;background:var(--gbg);color:var(--green);border:1px solid var(--gbdr);padding:2px 8px;border-radius:var(--rpill)}
 .nav-links{display:flex;gap:2px}
-.nav-btn{
-  display:flex;align-items:center;gap:6px;
-  font-size:13px;color:var(--t3);
-  padding:6px 12px;border-radius:var(--rsm);
-  border:none;background:transparent;transition:color .15s,background .15s;
-}
+.nav-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t3);padding:6px 12px;border-radius:var(--rsm);border:none;background:transparent;transition:color .15s,background .15s}
 .nav-btn svg{width:14px;height:14px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2}
 .nav-btn:hover{color:var(--t2);background:var(--bg3)}
 .nav-btn.active{color:var(--t1);background:var(--bg3);font-weight:500}
 
-/* ─── PAGES ──────────────────────────────────────────────── */
+/* PAGES */
 .page{display:none;animation:fadeIn .2s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .wrap{max-width:1120px;margin:0 auto;padding:24px}
 
-/* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+/* TYPOGRAPHY */
 .h1{font-family:var(--fh);font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--t1);margin-bottom:4px}
 .sub{font-size:13px;color:var(--t2);margin-bottom:20px}
-.h2{font-family:var(--fh);font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--t1)}
 
-/* ─── CARD BASE ──────────────────────────────────────────── */
-.card{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--r);overflow:hidden;
-}
-.card-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px 12px;border-bottom:1px solid var(--b1);
-}
-.card-title{
-  display:flex;align-items:center;gap:8px;
-  font-family:var(--fh);font-size:13px;font-weight:600;color:var(--t1);
-}
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 12px;border-bottom:1px solid var(--b1)}
+.card-title{display:flex;align-items:center;gap:8px;font-family:var(--fh);font-size:13px;font-weight:600;color:var(--t1)}
 .card-title svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;color:var(--t3)}
 .card-link{font-size:12px;color:var(--blue);background:none;border:none;transition:opacity .15s}
 .card-link:hover{opacity:.7;text-decoration:underline}
 
-/* ─── BADGES / PILLS ─────────────────────────────────────── */
+/* PILLS */
 .pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:var(--rpill);border:1px solid}
 .pill.g{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
 .pill.b{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
 .pill.a{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
 .pill.r{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
+.pill.p{background:var(--pbg);color:var(--purple);border-color:var(--pbdr)}
 .pill.neutral{background:var(--bg4);color:var(--t2);border-color:var(--b2)}
 .pill svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5}
-
-.score-chip{
-  font-family:var(--mono);font-size:12px;font-weight:500;
-  padding:3px 9px;border-radius:var(--rpill);border:1px solid;flex-shrink:0;
-}
+.score-chip{font-family:var(--mono);font-size:12px;font-weight:500;padding:3px 9px;border-radius:var(--rpill);border:1px solid;flex-shrink:0}
 .score-chip.h{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
 .score-chip.m{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
 .score-chip.l{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
 
-/* ─── BUTTONS ────────────────────────────────────────────── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:0 16px;height:36px;border-radius:var(--rsm);
-  font-size:13px;font-weight:500;border:1px solid;transition:opacity .15s,transform .1s;
-}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:0 16px;height:36px;border-radius:var(--rsm);font-size:13px;font-weight:500;border:1px solid;transition:opacity .15s,transform .1s}
 .btn:hover{opacity:.85}
 .btn:active{transform:scale(.98)}
 .btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5}
 .btn-green{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
 .btn-blue{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
 .btn-ghost{background:transparent;color:var(--t2);border-color:var(--b2)}
+.btn-red{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
 .btn-sm{height:30px;padding:0 12px;font-size:12px}
 
-/* ─── ALERT BANNER ───────────────────────────────────────── */
-.alert{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 16px;margin-bottom:18px;
-  background:var(--abg);border:1px solid var(--abdr);
-  border-radius:var(--r);font-size:12px;color:var(--amber);
-}
+/* ALERT */
+.alert{display:flex;align-items:center;gap:10px;padding:10px 16px;margin-bottom:18px;background:var(--abg);border:1px solid var(--abdr);border-radius:var(--r);font-size:12px;color:var(--amber)}
 .alert svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
 .alert-link{margin-left:auto;color:var(--amber);background:none;border:none;font-size:12px;font-weight:500;text-decoration:underline}
 
-/* ─── STATS ROW ──────────────────────────────────────────── */
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
-.stat{
-  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
-  padding:16px 18px;cursor:pointer;transition:border-color .15s;
-}
+.stat{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:border-color .15s}
 .stat:hover{border-color:var(--b2)}
 .stat-lbl{font-size:11px;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:5px}
 .stat-lbl svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
@@ -179,14 +106,11 @@ nav{
 .stat-val.a{color:var(--amber)}
 .stat-sub{font-size:11px;color:var(--t3);margin-top:4px}
 
-/* ─── MAIN GRID (painel) ─────────────────────────────────── */
+/* MAIN GRID */
 .main-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:14px}
 
-/* ─── LICIT LIST ─────────────────────────────────────────── */
-.licit-item{
-  padding:12px 18px;border-bottom:1px solid var(--b1);cursor:pointer;
-  transition:background .12s;
-}
+/* LICIT LIST */
+.licit-item{padding:12px 18px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background .12s}
 .licit-item:last-child{border-bottom:none}
 .licit-item:hover{background:var(--bg3)}
 .licit-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
@@ -195,24 +119,16 @@ nav{
 .meta-tag{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:3px}
 .meta-tag svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
 
-/* ─── FUNIL SIDEBAR ──────────────────────────────────────── */
-.funil-row{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:9px 18px;border-bottom:1px solid var(--b1);font-size:13px;cursor:pointer;
-  transition:background .12s;
-}
+/* FUNIL SIDEBAR */
+.funil-row{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;border-bottom:1px solid var(--b1);font-size:13px;cursor:pointer;transition:background .12s}
 .funil-row:last-child{border-bottom:none}
 .funil-row:hover{background:var(--bg3)}
 .funil-lbl{color:var(--t2);display:flex;align-items:center;gap:8px}
 .fdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .funil-n{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--t1)}
 
-/* ─── AGENDA SIDEBAR ─────────────────────────────────────── */
-.ag-item{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:10px 18px;border-bottom:1px solid var(--b1);cursor:pointer;
-  transition:background .12s;
-}
+/* AGENDA SIDEBAR */
+.ag-item{display:flex;gap:12px;align-items:flex-start;padding:10px 18px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background .12s}
 .ag-item:last-child{border-bottom:none}
 .ag-item:hover{background:var(--bg3)}
 .ag-date{text-align:center;min-width:32px}
@@ -224,75 +140,41 @@ nav{
 .ag-sub svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
 .ag-sub.u{color:var(--red)}
 
-/* ─── BUSCA PAGE ─────────────────────────────────────────── */
+/* BUSCA */
 .search-bar{display:flex;gap:8px;margin-bottom:14px}
-.search-input{
-  flex:1;background:var(--bg2);border:1px solid var(--b2);
-  border-radius:var(--r);padding:0 14px;height:40px;
-  font-size:13px;color:var(--t1);outline:none;transition:border-color .15s;
-}
+.search-input{flex:1;background:var(--bg2);border:1px solid var(--b2);border-radius:var(--r);padding:0 14px;height:40px;font-size:13px;color:var(--t1);outline:none;transition:border-color .15s}
 .search-input:focus{border-color:var(--blue)}
 .search-input::placeholder{color:var(--t3)}
-
-.filters-panel{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--r);padding:14px 18px;margin-bottom:14px;
-}
-.filters-head{
-  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:6px;
-}
+.filters-panel{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:14px 18px;margin-bottom:14px}
+.filters-head{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .filters-head svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
 .filters-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .fg label{font-size:11px;color:var(--t2);display:block;margin-bottom:5px}
-.fg select{
-  width:100%;background:var(--bg3);border:1px solid var(--b2);
-  border-radius:var(--rsm);padding:7px 10px;
-  font-size:13px;color:var(--t1);outline:none;transition:border-color .15s;
-}
+.fg select{width:100%;background:var(--bg3);border:1px solid var(--b2);border-radius:var(--rsm);padding:7px 10px;font-size:13px;color:var(--t1);outline:none;transition:border-color .15s}
 .fg select:focus{border-color:var(--blue)}
-
 .chips-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
 .chip-lbl{font-size:11px;color:var(--t3)}
-.chip{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:11px;padding:3px 10px;border-radius:var(--rpill);
-  border:1px solid;cursor:pointer;transition:opacity .15s;
-}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 10px;border-radius:var(--rpill);border:1px solid;cursor:pointer;transition:opacity .15s}
 .chip:hover{opacity:.75}
 .chip svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.5}
 .chip.g{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
 .chip.b{background:var(--bbg);color:var(--blue);border-color:var(--bbdr)}
 .chip.a{background:var(--abg);color:var(--amber);border-color:var(--abdr)}
 .chip.x{background:transparent;color:var(--t3);border-color:var(--b2)}
-
 .results-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .res-count{font-size:13px;color:var(--t2)}
 .res-count strong{color:var(--t1)}
 .sort-row{display:flex;gap:4px}
-.sort-btn{
-  font-size:11px;padding:4px 10px;border-radius:var(--rpill);
-  border:1px solid var(--b2);background:transparent;color:var(--t3);
-  transition:all .12s;
-}
+.sort-btn{font-size:11px;padding:4px 10px;border-radius:var(--rpill);border:1px solid var(--b2);background:transparent;color:var(--t3);transition:all .12s}
 .sort-btn:hover{color:var(--t2)}
 .sort-btn.on{background:var(--bg3);color:var(--t1);border-color:var(--b2)}
-
-/* ─── RESULT CARDS ───────────────────────────────────────── */
 .results-list{display:flex;flex-direction:column;gap:10px}
-.result-card{
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--r);padding:16px 18px;cursor:pointer;
-  transition:border-color .15s;
-}
+.result-card{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:16px 18px;cursor:pointer;transition:border-color .15s}
 .result-card:hover{border-color:var(--b2)}
 .result-card.best{border-left:2px solid var(--green)}
 .rc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
 .rc-left{flex:1}
-.best-label{
-  font-size:10px;font-weight:600;color:var(--green);
-  display:flex;align-items:center;gap:4px;margin-bottom:5px;
-}
+.best-label{font-size:10px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:4px;margin-bottom:5px}
 .best-label svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5}
 .rc-title{font-size:14px;font-weight:500;color:var(--t1);line-height:1.35}
 .rc-score{text-align:right;flex-shrink:0}
@@ -312,42 +194,157 @@ nav{
 .bar-fill.l{background:var(--red)}
 .bar-val{font-family:var(--mono);font-size:11px;color:var(--t2);min-width:85px;text-align:right}
 .rc-actions{display:flex;gap:8px}
-
-/* ─── DICA ───────────────────────────────────────────────── */
-.dica{
-  display:flex;gap:12px;align-items:flex-start;
-  background:var(--bg2);border:1px solid var(--b1);
-  border-radius:var(--r);padding:14px 18px;margin-top:10px;
-}
+.dica{display:flex;gap:12px;align-items:flex-start;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:14px 18px;margin-top:10px}
 .dica svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;color:var(--amber);flex-shrink:0;margin-top:1px}
 .dica p{font-size:13px;color:var(--t2);line-height:1.5}
 .dica strong{color:var(--t1)}
-.dica-link{color:var(--blue);cursor:pointer;text-decoration:underline;background:none;border:none;font-size:13px;padding:0}
 
-/* ─── NEGÓCIOS ───────────────────────────────────────────── */
-.funil-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.fcol{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden}
-.fcol-head{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 14px 10px;border-bottom:1px solid var(--b1);
+/* ═══ FUNIL PROFISSIONAL ══════════════════════════════════ */
+
+/* Tabs de fase */
+.funil-tabs{display:flex;gap:0;margin-bottom:20px;background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:4px;overflow-x:auto}
+.ftab{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:var(--rsm);border:none;background:transparent;
+  font-size:13px;color:var(--t3);white-space:nowrap;transition:all .15s;flex-shrink:0;
 }
-.fcol-title{font-family:var(--fh);font-size:12px;font-weight:600;color:var(--t1);display:flex;align-items:center;gap:7px}
-.fcol-n{font-family:var(--mono);font-size:10px;padding:1px 7px;border-radius:var(--rpill);background:var(--bg4);color:var(--t2)}
-.fcards{padding:10px;display:flex;flex-direction:column;gap:7px;min-height:100px}
+.ftab:hover{color:var(--t2);background:var(--bg3)}
+.ftab.active{background:var(--bg3);color:var(--t1);font-weight:500}
+.ftab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ftab-count{font-family:var(--mono);font-size:10px;background:var(--bg4);color:var(--t2);padding:1px 6px;border-radius:var(--rpill)}
+.ftab.active .ftab-count{background:var(--bg5);color:var(--t1)}
+
+/* Funil layout */
+.funil-layout{display:grid;grid-template-columns:320px 1fr;gap:16px;min-height:600px}
+
+/* Lista de dispensas no funil */
+.funil-list-panel{display:flex;flex-direction:column;gap:8px}
+.funil-add-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:10px;border-radius:var(--r);
+  background:transparent;border:1px dashed var(--b2);
+  font-size:13px;color:var(--t3);transition:all .15s;
+}
+.funil-add-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--bbg)}
+.funil-add-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5}
+
 .fcard{
-  background:var(--bg3);border:1px solid var(--b1);border-radius:var(--rsm);
-  padding:10px 12px;cursor:pointer;transition:border-color .12s;
+  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
+  padding:14px 16px;cursor:pointer;transition:border-color .15s;
 }
 .fcard:hover{border-color:var(--b2)}
-.fcard-title{font-size:12px;font-weight:500;color:var(--t1);line-height:1.3;margin-bottom:6px}
-.fcard-meta{display:flex;flex-direction:column;gap:3px}
-.fcard-tag{font-size:10px;color:var(--t3);display:flex;align-items:center;gap:3px}
-.fcard-tag svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2}
-.fcard-score{font-family:var(--mono);font-size:10px;font-weight:500}
-.fcard-score.h{color:var(--green)}
-.fcard-score.m{color:var(--amber)}
+.fcard.selected{border-color:var(--blue);background:var(--bg3)}
+.fcard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.fcard-title{font-size:13px;font-weight:500;color:var(--t1);line-height:1.35;flex:1}
+.fcard-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.fcard-tag{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:3px}
+.fcard-tag svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+.fcard-progress{margin-top:2px}
+.fcard-prog-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.fcard-prog-label{font-size:10px;color:var(--t3)}
+.fcard-prog-pct{font-family:var(--mono);font-size:10px;color:var(--t2)}
+.fcard-prog-track{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.fcard-prog-fill{height:100%;border-radius:2px;background:var(--green);transition:width .4s}
+.fcard-prog-fill.partial{background:var(--amber)}
+.fcard-prog-fill.zero{background:var(--bg5)}
 
-/* ─── ANÁLISE ────────────────────────────────────────────── */
+/* Detalhe da dispensa */
+.funil-detail-panel{
+  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
+  padding:20px;display:flex;flex-direction:column;gap:20px;
+}
+.detail-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;gap:12px;color:var(--t3);font-size:13px;text-align:center;
+}
+.detail-empty svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1;opacity:.4}
+
+/* Cabeçalho do detalhe */
+.detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--b1)}
+.detail-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);margin-bottom:6px;line-height:1.3}
+.detail-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.detail-meta-item{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:4px}
+.detail-meta-item svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.detail-actions{display:flex;gap:8px;flex-shrink:0}
+
+/* Progresso geral */
+.detail-progress{background:var(--bg3);border-radius:var(--r);padding:14px 16px}
+.dp-label{font-size:11px;color:var(--t2);margin-bottom:10px;font-weight:500}
+.dp-phases{display:flex;gap:4px;align-items:center;margin-bottom:12px}
+.dp-phase{flex:1;text-align:center}
+.dp-phase-bar{height:5px;border-radius:3px;margin-bottom:4px;transition:background .3s}
+.dp-phase-bar.done{background:var(--green)}
+.dp-phase-bar.current{background:var(--blue)}
+.dp-phase-bar.todo{background:var(--bg5)}
+.dp-phase-name{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.04em}
+.dp-phase-name.done{color:var(--green)}
+.dp-phase-name.current{color:var(--blue)}
+.dp-pct-row{display:flex;align-items:center;justify-content:space-between}
+.dp-pct{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--green)}
+.dp-pct-sub{font-size:11px;color:var(--t3)}
+
+/* Checklist de tarefas */
+.checklist-section{}
+.checklist-phase-title{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--fh);font-size:13px;font-weight:600;color:var(--t1);
+  margin-bottom:12px;
+}
+.checklist-phase-title svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.checklist-phase-pct{font-family:var(--mono);font-size:11px;color:var(--t2);margin-left:auto}
+.checklist-phasebar{height:3px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-bottom:14px}
+.checklist-phasebar-fill{height:100%;border-radius:2px;background:var(--blue);transition:width .4s}
+.task-list{display:flex;flex-direction:column;gap:1px}
+.task-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 12px;border-radius:var(--rsm);
+  transition:background .12s;cursor:pointer;
+}
+.task-item:hover{background:var(--bg3)}
+.task-item.done{opacity:.6}
+.task-cb{
+  width:16px;height:16px;border-radius:4px;border:1.5px solid var(--b3);
+  background:transparent;flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;cursor:pointer;
+}
+.task-item.done .task-cb{background:var(--green);border-color:var(--green)}
+.task-cb svg{width:10px;height:10px;color:#fff;fill:none;stroke:currentColor;stroke-width:3;display:none}
+.task-item.done .task-cb svg{display:block}
+.task-text{font-size:13px;color:var(--t1);line-height:1.4;flex:1}
+.task-item.done .task-text{text-decoration:line-through;color:var(--t3)}
+.task-note{font-size:11px;color:var(--t3);margin-top:2px}
+.task-add{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:var(--rsm);
+  background:transparent;border:none;
+  font-size:12px;color:var(--t3);transition:all .15s;width:100%;margin-top:4px;
+}
+.task-add:hover{background:var(--bg3);color:var(--t2)}
+.task-add svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5}
+
+/* Notas */
+.notes-section{}
+.notes-label{font-size:11px;color:var(--t3);margin-bottom:8px;font-weight:500;display:flex;align-items:center;gap:5px}
+.notes-label svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.notes-textarea{
+  width:100%;background:var(--bg3);border:1px solid var(--b2);border-radius:var(--rsm);
+  padding:10px 12px;font-size:13px;color:var(--t1);resize:vertical;min-height:80px;
+  outline:none;transition:border-color .15s;line-height:1.5;
+}
+.notes-textarea:focus{border-color:var(--blue)}
+.notes-textarea::placeholder{color:var(--t3)}
+
+/* Avanço de fase */
+.phase-advance{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;background:var(--bg3);border-radius:var(--r);
+  border:1px solid var(--b1);
+}
+.pa-info{font-size:12px;color:var(--t2)}
+.pa-info strong{color:var(--t1)}
+
+/* ANÁLISE */
 .analise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
 .ac{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);padding:18px}
 .ac-lbl{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
@@ -360,17 +357,12 @@ nav{
 .chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
 .chart-bar{width:100%;border-radius:5px 5px 0 0;transition:height .4s}
 .chart-bar.win{background:linear-gradient(180deg,var(--green) 0%,rgba(31,217,138,.3) 100%)}
-.chart-bar.loss{background:linear-gradient(180deg,var(--red) 0%,rgba(240,82,82,.3) 100%)}
 .chart-lbl{font-size:10px;color:var(--t3)}
 .chart-n{font-family:var(--mono);font-size:10px;color:var(--t2)}
 
-/* ─── AGENDA PAGE ────────────────────────────────────────── */
+/* AGENDA PAGE */
 .agenda-list{display:flex;flex-direction:column;gap:8px}
-.agp-item{
-  background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);
-  display:flex;gap:16px;align-items:flex-start;padding:16px 18px;cursor:pointer;
-  transition:border-color .15s;
-}
+.agp-item{background:var(--bg2);border:1px solid var(--b1);border-radius:var(--r);display:flex;gap:16px;align-items:flex-start;padding:16px 18px;cursor:pointer;transition:border-color .15s}
 .agp-item:hover{border-color:var(--b2)}
 .agp-item.urgent{border-left:2px solid var(--red)}
 .agp-date{text-align:center;min-width:40px}
@@ -381,27 +373,16 @@ nav{
 .agp-sub{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:5px}
 .agp-sub svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
 .agp-time{font-family:var(--mono)}
-.status-badge{
-  font-size:11px;padding:3px 10px;border-radius:var(--rpill);border:1px solid;
-  flex-shrink:0;align-self:center;
-}
+.status-badge{font-size:11px;padding:3px 10px;border-radius:var(--rpill);border:1px solid;flex-shrink:0;align-self:center}
 .status-badge.u{background:var(--rbg);color:var(--red);border-color:var(--rbdr)}
 .status-badge.ok{background:var(--gbg);color:var(--green);border-color:var(--gbdr)}
 .status-badge.n{background:var(--bg4);color:var(--t3);border-color:var(--b1)}
 
-/* ─── MODAL ──────────────────────────────────────────────── */
-.backdrop{
-  display:none;position:fixed;inset:0;z-index:400;
-  background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px;
-  animation:bdin .2s ease;
-}
+/* MODAL */
+.backdrop{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px;animation:bdin .2s ease}
 .backdrop.open{display:flex}
 @keyframes bdin{from{opacity:0}to{opacity:1}}
-.modal{
-  background:var(--bg2);border:1px solid var(--b2);border-radius:14px;
-  padding:24px;width:100%;max-width:520px;box-shadow:var(--shadow);
-  animation:min .2s cubic-bezier(.16,1,.3,1);
-}
+.modal{background:var(--bg2);border:1px solid var(--b2);border-radius:14px;padding:24px;width:100%;max-width:520px;box-shadow:var(--shadow);animation:min .2s cubic-bezier(.16,1,.3,1)}
 @keyframes min{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 .modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .modal-title{font-family:var(--fh);font-size:16px;font-weight:700;color:var(--t1);line-height:1.3;flex:1;margin-right:16px}
@@ -426,287 +407,130 @@ nav{
 .crit-val.warn{color:var(--amber)}
 .modal-actions{display:flex;gap:8px}
 .modal-actions .btn{flex:1;justify-content:center;height:40px}
-
-/* ─── MEI badge ──────────────────────────────────────────── */
-.mei-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:11px;color:var(--blue);
-  background:var(--bbg);border:1px solid var(--bbdr);
-  padding:4px 12px;border-radius:var(--rpill);
-}
+.mei-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--blue);background:var(--bbg);border:1px solid var(--bbdr);padding:4px 12px;border-radius:var(--rpill)}
 .mei-badge svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.5}
 
-/* ─── EMPTY STATE ────────────────────────────────────────── */
-.empty{font-size:12px;color:var(--t3);text-align:center;padding:24px 0;font-style:italic}
-
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:760px){
-  .stats-row{grid-template-columns:1fr 1fr}
-  .main-grid{grid-template-columns:1fr}
-  .filters-grid{grid-template-columns:1fr 1fr}
-  .funil-cols{grid-template-columns:1fr}
-  .analise-grid{grid-template-columns:1fr}
-  .wrap{padding:16px 14px}
-  .nav-btn span{display:none}
-  nav{padding:0 14px}
-}
-@media(max-width:480px){
-  .filters-grid{grid-template-columns:1fr}
-  .stats-row{grid-template-columns:1fr 1fr}
-}
+/* RESPONSIVE */
+@media(max-width:900px){.funil-layout{grid-template-columns:1fr}.funil-detail-panel{display:none}}
+@media(max-width:760px){.stats-row{grid-template-columns:1fr 1fr}.main-grid{grid-template-columns:1fr}.filters-grid{grid-template-columns:1fr 1fr}.analise-grid{grid-template-columns:1fr}.wrap{padding:16px 14px}.nav-btn span{display:none}nav{padding:0 14px}}
+@media(max-width:480px){.filters-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div id="root">
 
-<!-- ── NAV ───────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav>
   <a class="logo" href="#">
-    <span class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    </span>
+    <span class="logo-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
     LicitaMEI
     <span class="logo-badge">Dispensa Eletrônica</span>
   </a>
   <div class="nav-links">
-    <button class="nav-btn active" onclick="goPage('painel',this)">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      <span>Painel</span>
-    </button>
-    <button class="nav-btn" onclick="goPage('busca',this)">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>Buscar</span>
-    </button>
-    <button class="nav-btn" onclick="goPage('negocios',this)">
-      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
-      <span>Negócios</span>
-    </button>
-    <button class="nav-btn" onclick="goPage('analise',this)">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span>Análise</span>
-    </button>
-    <button class="nav-btn" onclick="goPage('agenda',this)">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span>Agenda</span>
-    </button>
+    <button class="nav-btn active" onclick="goPage('painel',this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Painel</span></button>
+    <button class="nav-btn" onclick="goPage('busca',this)"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Buscar</span></button>
+    <button class="nav-btn" onclick="goPage('negocios',this)"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg><span>Negócios</span></button>
+    <button class="nav-btn" onclick="goPage('analise',this)"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><span>Análise</span></button>
+    <button class="nav-btn" onclick="goPage('agenda',this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Agenda</span></button>
   </div>
 </nav>
 
-<!-- ══ PAINEL ════════════════════════════════════════════════ -->
+<!-- ══ PAINEL ══ -->
 <div id="page-painel" class="page active">
 <div class="wrap">
-
   <div style="margin-bottom:20px">
-    <p style="font-size:12px;color:var(--t3);margin-bottom:4px">Bom dia! Hoje é sábado, 07 de junho de 2026.</p>
+    <p style="font-size:12px;color:var(--t3);margin-bottom:4px" id="greeting-date">Carregando data...</p>
     <h1 class="h1">Seu painel de dispensas</h1>
-    <span class="mei-badge" style="margin-top:8px;display:inline-flex">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      MEI / ME — participação exclusiva habilitada
-    </span>
+    <span class="mei-badge" style="margin-top:8px;display:inline-flex"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>MEI / ME — participação exclusiva habilitada</span>
   </div>
-
   <div class="alert">
     <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
     <span><strong>Atenção:</strong> 2 dispensas com prazo encerrando em menos de 24h.</span>
     <button class="alert-link" onclick="goPage('agenda',document.querySelectorAll('.nav-btn')[4])">Ver agenda →</button>
   </div>
-
   <div class="stats-row">
     <div class="stat" onclick="goPage('busca',document.querySelectorAll('.nav-btn')[1])">
       <div class="stat-lbl"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Novas hoje</div>
-      <div class="stat-val g">7</div>
-      <div class="stat-sub">dispensas no seu perfil</div>
+      <div class="stat-val g">7</div><div class="stat-sub">dispensas no seu perfil</div>
     </div>
     <div class="stat" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])">
       <div class="stat-lbl"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>Em andamento</div>
-      <div class="stat-val a">3</div>
-      <div class="stat-sub">no funil agora</div>
+      <div class="stat-val a">3</div><div class="stat-sub">no funil agora</div>
     </div>
     <div class="stat">
       <div class="stat-lbl"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Valor em disputa</div>
-      <div class="stat-val" style="font-size:22px;color:var(--t1)">R$ 34k</div>
-      <div class="stat-sub">nas abertas agora</div>
+      <div class="stat-val" style="font-size:22px;color:var(--t1)">R$ 34k</div><div class="stat-sub">nas abertas agora</div>
     </div>
     <div class="stat" onclick="goPage('analise',document.querySelectorAll('.nav-btn')[3])">
       <div class="stat-lbl"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Taxa de ganho</div>
-      <div class="stat-val g">2/5</div>
-      <div class="stat-sub">últimos 30 dias</div>
+      <div class="stat-val g">2/5</div><div class="stat-sub">últimos 30 dias</div>
     </div>
   </div>
-
   <div class="main-grid">
     <div class="card">
       <div class="card-head">
-        <span class="card-title">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Dispensas recomendadas
-        </span>
+        <span class="card-title"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Dispensas recomendadas</span>
         <button class="card-link" onclick="goPage('busca',document.querySelectorAll('.nav-btn')[1])">Ver todas →</button>
       </div>
       <div>
-        <div class="licit-item" onclick="openModal(0)">
-          <div class="licit-row"><div class="licit-title">Aquisição de material de escritório — Prefeitura de Aracaju/SE</div><span class="score-chip h">9.1</span></div>
-          <div class="licit-meta">
-            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje 18h</span>
-            <span class="meta-tag">R$ 8.400</span>
-            <span class="pill g"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ME/EPP exclusivo</span>
-            <span class="pill b">Materiais</span>
-          </div>
-        </div>
-        <div class="licit-item" onclick="openModal(1)">
-          <div class="licit-row"><div class="licit-title">Serviços de limpeza para CRAS municipal — Itabaiana/SE</div><span class="score-chip h">8.4</span></div>
-          <div class="licit-meta">
-            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3 dias</span>
-            <span class="meta-tag">R$ 12.000</span>
-            <span class="pill b">Serviços</span>
-          </div>
-        </div>
-        <div class="licit-item" onclick="openModal(2)">
-          <div class="licit-row"><div class="licit-title">Suprimentos de informática (toners, papéis) — UFS/SE</div><span class="score-chip h">7.8</span></div>
-          <div class="licit-meta">
-            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 dias</span>
-            <span class="meta-tag">R$ 15.600</span>
-            <span class="pill g">ME/EPP exclusivo</span>
-            <span class="pill b">Materiais</span>
-          </div>
-        </div>
-        <div class="licit-item" onclick="openModal(3)">
-          <div class="licit-row"><div class="licit-title">Manutenção de equipamentos de informática — Câmara Municipal/SE</div><span class="score-chip l">4.2</span></div>
-          <div class="licit-meta">
-            <span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 dias</span>
-            <span class="meta-tag">R$ 6.200</span>
-            <span class="pill neutral">TI</span>
-          </div>
-        </div>
+        <div class="licit-item" onclick="openModal(0)"><div class="licit-row"><div class="licit-title">Aquisição de material de escritório — Prefeitura de Aracaju/SE</div><span class="score-chip h">9.1</span></div><div class="licit-meta"><span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje 18h</span><span class="meta-tag">R$ 8.400</span><span class="pill g">ME/EPP exclusivo</span><span class="pill b">Materiais</span></div></div>
+        <div class="licit-item" onclick="openModal(1)"><div class="licit-row"><div class="licit-title">Serviços de limpeza para CRAS — Itabaiana/SE</div><span class="score-chip h">8.4</span></div><div class="licit-meta"><span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3 dias</span><span class="meta-tag">R$ 12.000</span><span class="pill b">Serviços</span></div></div>
+        <div class="licit-item" onclick="openModal(2)"><div class="licit-row"><div class="licit-title">Suprimentos de informática — UFS/SE</div><span class="score-chip h">7.8</span></div><div class="licit-meta"><span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 dias</span><span class="meta-tag">R$ 15.600</span><span class="pill g">ME/EPP exclusivo</span><span class="pill b">Materiais</span></div></div>
+        <div class="licit-item" onclick="openModal(3)"><div class="licit-row"><div class="licit-title">Manutenção de equipamentos — Câmara Municipal/SE</div><span class="score-chip l">4.2</span></div><div class="licit-meta"><span class="meta-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 dias</span><span class="meta-tag">R$ 6.200</span><span class="pill neutral">TI</span></div></div>
       </div>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:12px">
       <div class="card">
-        <div class="card-head">
-          <span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Funil atual</span>
-          <button class="card-link" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])">Detalhes →</button>
-        </div>
+        <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Funil atual</span><button class="card-link" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])">Detalhes →</button></div>
         <div>
-          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#4f9eff"></span>Encontradas</span><span class="funil-n">7</span></div>
-          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#f5a623"></span>Analisando</span><span class="funil-n">3</span></div>
-          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#d86030"></span>Proposta enviada</span><span class="funil-n">1</span></div>
-          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#1fd98a"></span>Ganhas</span><span class="funil-n">2</span></div>
-          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#50596a"></span>Perdidas</span><span class="funil-n">3</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#4f9eff"></span>Oportunidade</span><span class="funil-n">2</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#f5a623"></span>Qualificação</span><span class="funil-n">1</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#a78bfa"></span>Disputa</span><span class="funil-n">1</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#1fd98a"></span>Classificação</span><span class="funil-n">0</span></div>
+          <div class="funil-row" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2])"><span class="funil-lbl"><span class="fdot" style="background:#22d3ee"></span>Contrato</span><span class="funil-n">2</span></div>
         </div>
       </div>
       <div class="card">
-        <div class="card-head">
-          <span class="card-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Próximos prazos</span>
-          <button class="card-link" onclick="goPage('agenda',document.querySelectorAll('.nav-btn')[4])">Agenda →</button>
-        </div>
+        <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Próximos prazos</span><button class="card-link" onclick="goPage('agenda',document.querySelectorAll('.nav-btn')[4])">Agenda →</button></div>
         <div>
-          <div class="ag-item" onclick="openModal(0)">
-            <div class="ag-date"><div class="ag-day">06</div><div class="ag-mon">Jun</div></div>
-            <div class="ag-info">
-              <div class="ag-title">Encerramento — Mat. Escritório Aracaju</div>
-              <div class="ag-sub u"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje às 18h — urgente!</div>
-            </div>
-          </div>
-          <div class="ag-item">
-            <div class="ag-date"><div class="ag-day">08</div><div class="ag-mon">Jun</div></div>
-            <div class="ag-info">
-              <div class="ag-title">Encerramento — Manutenção TI Câmara</div>
-              <div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 2 dias às 09h</div>
-            </div>
-          </div>
-          <div class="ag-item">
-            <div class="ag-date"><div class="ag-day">09</div><div class="ag-mon">Jun</div></div>
-            <div class="ag-info">
-              <div class="ag-title">Encerramento — Limpeza CRAS Itabaiana</div>
-              <div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 3 dias às 14h</div>
-            </div>
-          </div>
+          <div class="ag-item" onclick="openModal(0)"><div class="ag-date"><div class="ag-day">06</div><div class="ag-mon">Jun</div></div><div class="ag-info"><div class="ag-title">Encerramento — Mat. Escritório Aracaju</div><div class="ag-sub u"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje às 18h — urgente!</div></div></div>
+          <div class="ag-item"><div class="ag-date"><div class="ag-day">08</div><div class="ag-mon">Jun</div></div><div class="ag-info"><div class="ag-title">Encerramento — Manutenção TI Câmara</div><div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 2 dias às 09h</div></div></div>
+          <div class="ag-item"><div class="ag-date"><div class="ag-day">09</div><div class="ag-mon">Jun</div></div><div class="ag-info"><div class="ag-title">Encerramento — Limpeza CRAS Itabaiana</div><div class="ag-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Em 3 dias às 14h</div></div></div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 </div>
 
-<!-- ══ BUSCA ══════════════════════════════════════════════════ -->
+<!-- ══ BUSCA ══ -->
 <div id="page-busca" class="page">
 <div class="wrap">
   <h1 class="h1">Buscar dispensas</h1>
   <p class="sub">Encontre oportunidades filtradas pelo seu perfil de MEI/ME</p>
-
   <div class="search-bar">
-    <input class="search-input" id="search-input" type="text" placeholder="Ex: material de escritório, serviços de limpeza, suprimentos...">
-    <button class="btn btn-blue" onclick="renderResults()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Buscar
-    </button>
+    <input class="search-input" id="search-input" type="text" placeholder="Ex: material de escritório, limpeza, suprimentos...">
+    <button class="btn btn-blue" onclick="renderResults()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Buscar</button>
   </div>
-
   <div class="filters-panel">
-    <div class="filters-head">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-      Filtros avançados
-    </div>
+    <div class="filters-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Filtros avançados</div>
     <div class="filters-grid">
-      <div class="fg"><label>Score mínimo</label>
-        <select id="f-score" onchange="renderResults()">
-          <option value="7.5" selected>Alta pontuação (7.5+)</option>
-          <option value="5">Média pontuação (5+)</option>
-          <option value="0">Todas</option>
-        </select>
-      </div>
-      <div class="fg"><label>Estado</label>
-        <select id="f-estado" onchange="renderResults()">
-          <option value="SE" selected>Sergipe (SE)</option>
-          <option value="BA">Bahia (BA)</option>
-          <option value="AL">Alagoas (AL)</option>
-          <option value="ALL">Todos os estados</option>
-        </select>
-      </div>
-      <div class="fg"><label>Valor estimado</label>
-        <select id="f-valor" onchange="renderResults()">
-          <option value="10000">Até R$ 10 mil</option>
-          <option value="20000" selected>Até R$ 20 mil</option>
-          <option value="50000">Até R$ 50 mil</option>
-          <option value="80000">Até R$ 80 mil</option>
-        </select>
-      </div>
-      <div class="fg"><label>Tipo de item</label>
-        <select id="f-tipo" onchange="renderResults()">
-          <option value="all" selected>Todos</option>
-          <option value="mat">Materiais</option>
-          <option value="srv">Serviços</option>
-        </select>
-      </div>
-      <div class="fg"><label>Prazo de encerramento</label>
-        <select id="f-prazo" onchange="renderResults()">
-          <option>Hoje</option>
-          <option>Próximos 3 dias</option>
-          <option selected>Próximos 7 dias</option>
-          <option>Próximos 15 dias</option>
-        </select>
-      </div>
-      <div class="fg"><label>Exclusivo ME/EPP</label>
-        <select id="f-mepp" onchange="renderResults()">
-          <option value="all">Todos</option>
-          <option value="pref" selected>Preferencialmente sim</option>
-          <option value="only">Somente exclusivos</option>
-        </select>
-      </div>
+      <div class="fg"><label>Score mínimo</label><select id="f-score" onchange="renderResults()"><option value="7.5" selected>Alta pontuação (7.5+)</option><option value="5">Média pontuação (5+)</option><option value="0">Todas</option></select></div>
+      <div class="fg"><label>Estado</label><select id="f-estado" onchange="renderResults()"><option value="SE" selected>Sergipe (SE)</option><option value="BA">Bahia (BA)</option><option value="AL">Alagoas (AL)</option><option value="ALL">Todos</option></select></div>
+      <div class="fg"><label>Valor estimado</label><select id="f-valor" onchange="renderResults()"><option value="10000">Até R$ 10 mil</option><option value="20000" selected>Até R$ 20 mil</option><option value="50000">Até R$ 50 mil</option><option value="80000">Até R$ 80 mil</option></select></div>
+      <div class="fg"><label>Tipo de item</label><select id="f-tipo" onchange="renderResults()"><option value="all" selected>Todos</option><option value="mat">Materiais</option><option value="srv">Serviços</option></select></div>
+      <div class="fg"><label>Prazo de encerramento</label><select id="f-prazo"><option>Hoje</option><option>Próximos 3 dias</option><option selected>Próximos 7 dias</option><option>Próximos 15 dias</option></select></div>
+      <div class="fg"><label>Exclusivo ME/EPP</label><select id="f-mepp"><option value="all">Todos</option><option value="pref" selected>Preferencialmente sim</option><option value="only">Somente exclusivos</option></select></div>
     </div>
   </div>
-
   <div class="chips-row">
     <span class="chip-lbl">Filtros ativos:</span>
     <span class="chip g"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Alta pontuação 7.5+</span>
-    <span class="chip b"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Sergipe</span>
+    <span class="chip b">Sergipe</span>
     <span class="chip b">Até R$ 20 mil</span>
-    <span class="chip a"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ME/EPP preferencial</span>
+    <span class="chip a">ME/EPP preferencial</span>
     <span class="chip x" onclick="resetFilters()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Limpar</span>
   </div>
-
   <div class="results-head">
     <span class="res-count"><strong id="res-count">4 dispensas</strong> encontradas</span>
     <div class="sort-row">
@@ -715,9 +539,7 @@ nav{
       <button class="sort-btn" onclick="setSortResults('valor',this)">Maior valor</button>
     </div>
   </div>
-
   <div class="results-list" id="results-list"></div>
-
   <div class="dica">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <p><strong>Dica para iniciante:</strong> Comece pelas dispensas com score 8+ e valor abaixo de R$ 15 mil. São mais simples, ensinam o processo e constroem seu histórico de fornecedor no PNCP.</p>
@@ -725,268 +547,109 @@ nav{
 </div>
 </div>
 
-<!-- ══ NEGÓCIOS ═══════════════════════════════════════════════ -->
+<!-- ══ NEGÓCIOS (FUNIL PROFISSIONAL) ══ -->
 <div id="page-negocios" class="page">
 <div class="wrap">
-  <h1 class="h1">Funil de negócios</h1>
-  <p class="sub">Acompanhe cada dispensa do achado até o contrato</p>
-  <div class="funil-cols">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px">
+    <div>
+      <h1 class="h1">Funil de licitações</h1>
+      <p class="sub" style="margin-bottom:0">Acompanhe cada dispensa por todas as etapas — do achado ao contrato</p>
+    </div>
+    <button class="btn btn-green" onclick="openAddModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nova dispensa</button>
+  </div>
 
-    <div class="fcol">
-      <div class="fcol-head">
-        <span class="fcol-title"><span class="fdot" style="background:#4f9eff;width:8px;height:8px;border-radius:50%"></span>Encontradas</span>
-        <span class="fcol-n">7</span>
-      </div>
-      <div class="fcards">
-        <div class="fcard" onclick="openModal(2)">
-          <div class="fcard-title">Suprimentos TI — UFS/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6 dias</div>
-            <div class="fcard-tag">R$ 15.600</div>
-            <div class="fcard-score h">● Score 7.8</div>
-          </div>
-        </div>
-        <div class="fcard" onclick="openModal(3)">
-          <div class="fcard-title">Manutenção TI — Câmara/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2 dias</div>
-            <div class="fcard-tag">R$ 6.200</div>
-            <div class="fcard-score m">● Score 4.2</div>
-          </div>
-        </div>
-        <div class="fcard">
-          <div class="fcard-title">Material higiene — SEMED/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>8 dias</div>
-            <div class="fcard-tag">R$ 9.200</div>
-            <div class="fcard-score h">● Score 7.6</div>
-          </div>
-        </div>
+  <!-- Tabs de fase -->
+  <div class="funil-tabs" id="funil-tabs">
+    <button class="ftab active" onclick="setFunilTab(0,this)"><span class="ftab-dot" style="background:#4f9eff"></span>Oportunidade<span class="ftab-count" id="tc0">2</span></button>
+    <button class="ftab" onclick="setFunilTab(1,this)"><span class="ftab-dot" style="background:#f5a623"></span>Qualificação<span class="ftab-count" id="tc1">1</span></button>
+    <button class="ftab" onclick="setFunilTab(2,this)"><span class="ftab-dot" style="background:#a78bfa"></span>Disputa<span class="ftab-count" id="tc2">1</span></button>
+    <button class="ftab" onclick="setFunilTab(3,this)"><span class="ftab-dot" style="background:#1fd98a"></span>Classificação<span class="ftab-count" id="tc3">0</span></button>
+    <button class="ftab" onclick="setFunilTab(4,this)"><span class="ftab-dot" style="background:#22d3ee"></span>Contrato<span class="ftab-count" id="tc4">2</span></button>
+  </div>
+
+  <!-- Layout principal -->
+  <div class="funil-layout">
+    <!-- Lista de dispensas -->
+    <div>
+      <div class="funil-list-panel" id="funil-list-panel"></div>
+    </div>
+    <!-- Painel de detalhe -->
+    <div class="funil-detail-panel" id="funil-detail-panel">
+      <div class="detail-empty">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+        <span>Selecione uma dispensa<br>para ver as tarefas e progresso</span>
       </div>
     </div>
-
-    <div class="fcol">
-      <div class="fcol-head">
-        <span class="fcol-title"><span class="fdot" style="background:#f5a623;width:8px;height:8px;border-radius:50%"></span>Analisando</span>
-        <span class="fcol-n">3</span>
-      </div>
-      <div class="fcards">
-        <div class="fcard" onclick="openModal(0)">
-          <div class="fcard-title">Mat. escritório — Aracaju/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Hoje 18h</div>
-            <div class="fcard-tag">R$ 8.400</div>
-            <div class="fcard-score h">● Score 9.1</div>
-          </div>
-        </div>
-        <div class="fcard" onclick="openModal(1)">
-          <div class="fcard-title">Limpeza CRAS — Itabaiana/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3 dias</div>
-            <div class="fcard-tag">R$ 12.000</div>
-            <div class="fcard-score h">● Score 8.4</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fcol">
-      <div class="fcol-head">
-        <span class="fcol-title"><span class="fdot" style="background:#d86030;width:8px;height:8px;border-radius:50%"></span>Proposta enviada</span>
-        <span class="fcol-n">1</span>
-      </div>
-      <div class="fcards">
-        <div class="fcard">
-          <div class="fcard-title">Higiene escolar — SEMED/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--amber)">Aguardando resultado</div>
-            <div class="fcard-tag">R$ 9.200</div>
-            <div class="fcard-score h">● Score 7.6</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fcol">
-      <div class="fcol-head">
-        <span class="fcol-title"><span class="fdot" style="background:#1fd98a;width:8px;height:8px;border-radius:50%"></span>Ganhas</span>
-        <span class="fcol-n">2</span>
-      </div>
-      <div class="fcards">
-        <div class="fcard">
-          <div class="fcard-title">Mat. limpeza — Prefeitura/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--green)">✓ Ganho em 02/05</div>
-            <div class="fcard-tag">R$ 7.800</div>
-          </div>
-        </div>
-        <div class="fcard">
-          <div class="fcard-title">Papelaria — SEED/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--green)">✓ Ganho em 15/04</div>
-            <div class="fcard-tag">R$ 4.500</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fcol">
-      <div class="fcol-head">
-        <span class="fcol-title"><span class="fdot" style="background:#50596a;width:8px;height:8px;border-radius:50%"></span>Perdidas</span>
-        <span class="fcol-n">3</span>
-      </div>
-      <div class="fcards">
-        <div class="fcard">
-          <div class="fcard-title">Gêneros alimentícios — IFSE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--red)">✗ Preço alto</div>
-            <div class="fcard-tag">R$ 19.800</div>
-          </div>
-        </div>
-        <div class="fcard">
-          <div class="fcard-title">Uniformes — PM/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--red)">✗ Concorrência</div>
-            <div class="fcard-tag">R$ 11.000</div>
-          </div>
-        </div>
-        <div class="fcard">
-          <div class="fcard-title">Equipamentos áudio — SESC/SE</div>
-          <div class="fcard-meta">
-            <div class="fcard-tag" style="color:var(--red)">✗ Sem estoque</div>
-            <div class="fcard-tag">R$ 8.400</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 </div>
 
-<!-- ══ ANÁLISE ════════════════════════════════════════════════ -->
+<!-- ══ ANÁLISE ══ -->
 <div id="page-analise" class="page">
 <div class="wrap">
   <h1 class="h1">Análise de desempenho</h1>
   <p class="sub">Seu histórico e métricas dos últimos 90 dias</p>
-
   <div class="analise-grid">
-    <div class="ac">
-      <div class="ac-lbl">Participações</div>
-      <div class="ac-val b">14</div>
-      <div class="ac-sub">dispensas disputadas</div>
-    </div>
-    <div class="ac">
-      <div class="ac-lbl">Taxa de vitória</div>
-      <div class="ac-val g">40%</div>
-      <div class="ac-sub">5 ganhas de 14 disputadas</div>
-    </div>
-    <div class="ac">
-      <div class="ac-lbl">Faturamento gerado</div>
-      <div class="ac-val a">R$42k</div>
-      <div class="ac-sub">soma dos contratos ganhos</div>
-    </div>
+    <div class="ac"><div class="ac-lbl">Participações</div><div class="ac-val b">14</div><div class="ac-sub">dispensas disputadas</div></div>
+    <div class="ac"><div class="ac-lbl">Taxa de vitória</div><div class="ac-val g">40%</div><div class="ac-sub">5 ganhas de 14 disputadas</div></div>
+    <div class="ac"><div class="ac-lbl">Faturamento</div><div class="ac-val a">R$42k</div><div class="ac-sub">soma dos contratos ganhos</div></div>
   </div>
-
   <div class="card" style="margin-bottom:14px">
     <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Dispensas ganhas por mês</span></div>
-    <div style="padding:20px 24px">
-      <div class="chart-wrap">
-        <div class="chart-col"><div class="chart-n">1</div><div class="chart-bar win" style="height:40px"></div><div class="chart-lbl">Mar</div></div>
-        <div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Abr</div></div>
-        <div class="chart-col"><div class="chart-n">3</div><div class="chart-bar win" style="height:95px"></div><div class="chart-lbl">Mai</div></div>
-        <div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Jun</div></div>
-      </div>
-    </div>
+    <div style="padding:20px 24px"><div class="chart-wrap"><div class="chart-col"><div class="chart-n">1</div><div class="chart-bar win" style="height:40px"></div><div class="chart-lbl">Mar</div></div><div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Abr</div></div><div class="chart-col"><div class="chart-n">3</div><div class="chart-bar win" style="height:95px"></div><div class="chart-lbl">Mai</div></div><div class="chart-col"><div class="chart-n">2</div><div class="chart-bar win" style="height:70px"></div><div class="chart-lbl">Jun</div></div></div></div>
   </div>
-
-  <div class="card">
-    <div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Categorias mais lucrativas</span></div>
-    <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px">
-      <div class="bar-row"><span class="bar-lbl">Materiais</span><div class="bar-track"><div class="bar-fill h" style="width:80%"></div></div><span class="bar-val">R$ 22.000</span></div>
-      <div class="bar-row"><span class="bar-lbl">Serviços</span><div class="bar-track"><div class="bar-fill m" style="width:50%"></div></div><span class="bar-val">R$ 13.200</span></div>
-      <div class="bar-row"><span class="bar-lbl">Suprimentos TI</span><div class="bar-track"><div class="bar-fill h" style="width:28%"></div></div><span class="bar-val">R$ 7.000</span></div>
-    </div>
-  </div>
+  <div class="card"><div class="card-head"><span class="card-title"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Categorias mais lucrativas</span></div><div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px"><div class="bar-row"><span class="bar-lbl">Materiais</span><div class="bar-track"><div class="bar-fill h" style="width:80%"></div></div><span class="bar-val">R$ 22.000</span></div><div class="bar-row"><span class="bar-lbl">Serviços</span><div class="bar-track"><div class="bar-fill m" style="width:50%"></div></div><span class="bar-val">R$ 13.200</span></div><div class="bar-row"><span class="bar-lbl">Suprimentos TI</span><div class="bar-track"><div class="bar-fill h" style="width:28%"></div></div><span class="bar-val">R$ 7.000</span></div></div></div>
 </div>
 </div>
 
-<!-- ══ AGENDA ════════════════════════════════════════════════ -->
+<!-- ══ AGENDA ══ -->
 <div id="page-agenda" class="page">
 <div class="wrap">
   <h1 class="h1">Agenda de prazos</h1>
-  <p class="sub">Todos os vencimentos e eventos das suas dispensas em andamento</p>
-
+  <p class="sub">Todos os vencimentos das suas dispensas em andamento</p>
   <div class="agenda-list">
-    <div class="agp-item urgent" onclick="openModal(0)">
-      <div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div>
-      <div class="agp-info">
-        <div class="agp-title">Encerramento — Material de escritório, Prefeitura de Aracaju/SE</div>
-        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">18:00</span> · Score 9.1 · R$ 8.400</div>
-      </div>
-      <span class="status-badge u">Urgente hoje</span>
-    </div>
-    <div class="agp-item urgent">
-      <div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div>
-      <div class="agp-info">
-        <div class="agp-title">Encerramento — Higiene escolar, SEMED/SE (proposta enviada)</div>
-        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">17:00</span> · Score 7.6 · R$ 9.200</div>
-      </div>
-      <span class="status-badge u">Urgente hoje</span>
-    </div>
-    <div class="agp-item" onclick="openModal(3)">
-      <div class="agp-date"><div class="agp-day">08</div><div class="agp-mon">Jun</div></div>
-      <div class="agp-info">
-        <div class="agp-title">Encerramento — Manutenção de informática, Câmara Municipal/SE</div>
-        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">09:00</span> · Score 4.2 · R$ 6.200</div>
-      </div>
-      <span class="status-badge n">Em 2 dias</span>
-    </div>
-    <div class="agp-item" onclick="openModal(1)">
-      <div class="agp-date"><div class="agp-day">09</div><div class="agp-mon">Jun</div></div>
-      <div class="agp-info">
-        <div class="agp-title">Encerramento — Serviços de limpeza, CRAS Itabaiana/SE</div>
-        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">14:00</span> · Score 8.4 · R$ 12.000</div>
-      </div>
-      <span class="status-badge n">Em 3 dias</span>
-    </div>
-    <div class="agp-item" onclick="openModal(2)">
-      <div class="agp-date"><div class="agp-day">12</div><div class="agp-mon">Jun</div></div>
-      <div class="agp-info">
-        <div class="agp-title">Encerramento — Suprimentos de informática, UFS/SE</div>
-        <div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">10:00</span> · Score 7.8 · R$ 15.600</div>
-      </div>
-      <span class="status-badge ok">Em 6 dias</span>
-    </div>
+    <div class="agp-item urgent" onclick="openModal(0)"><div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div><div class="agp-info"><div class="agp-title">Encerramento — Material de escritório, Prefeitura de Aracaju/SE</div><div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">18:00</span> · Score 9.1 · R$ 8.400</div></div><span class="status-badge u">Urgente hoje</span></div>
+    <div class="agp-item urgent"><div class="agp-date"><div class="agp-day">06</div><div class="agp-mon">Jun</div></div><div class="agp-info"><div class="agp-title">Encerramento — Higiene escolar, SEMED/SE (proposta enviada)</div><div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">17:00</span> · Score 7.6 · R$ 9.200</div></div><span class="status-badge u">Urgente hoje</span></div>
+    <div class="agp-item" onclick="openModal(3)"><div class="agp-date"><div class="agp-day">08</div><div class="agp-mon">Jun</div></div><div class="agp-info"><div class="agp-title">Encerramento — Manutenção de informática, Câmara Municipal/SE</div><div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">09:00</span> · Score 4.2 · R$ 6.200</div></div><span class="status-badge n">Em 2 dias</span></div>
+    <div class="agp-item" onclick="openModal(1)"><div class="agp-date"><div class="agp-day">09</div><div class="agp-mon">Jun</div></div><div class="agp-info"><div class="agp-title">Encerramento — Serviços de limpeza, CRAS Itabaiana/SE</div><div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">14:00</span> · Score 8.4 · R$ 12.000</div></div><span class="status-badge n">Em 3 dias</span></div>
+    <div class="agp-item" onclick="openModal(2)"><div class="agp-date"><div class="agp-day">12</div><div class="agp-mon">Jun</div></div><div class="agp-info"><div class="agp-title">Encerramento — Suprimentos de informática, UFS/SE</div><div class="agp-sub"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="agp-time">10:00</span> · Score 7.8 · R$ 15.600</div></div><span class="status-badge ok">Em 6 dias</span></div>
   </div>
 </div>
 </div>
 
-<!-- ══ MODAL ══════════════════════════════════════════════════ -->
+<!-- ══ MODAL ANÁLISE ══ -->
 <div class="backdrop" id="backdrop" onclick="closeModal(event)">
   <div class="modal">
-    <div class="modal-head">
-      <div>
-        <div class="modal-title" id="m-title"></div>
-        <div class="modal-org" id="m-org"></div>
-      </div>
-      <button class="modal-close" onclick="closeModal()">×</button>
-    </div>
-    <div class="modal-score">
-      <div class="ms-row"><span>Score de decisão</span><strong id="m-score-txt"></strong></div>
-      <div class="ms-track"><div class="ms-fill" id="m-score-fill"></div></div>
-    </div>
+    <div class="modal-head"><div><div class="modal-title" id="m-title"></div><div class="modal-org" id="m-org"></div></div><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-score"><div class="ms-row"><span>Score de decisão</span><strong id="m-score-txt"></strong></div><div class="ms-track"><div class="ms-fill" id="m-score-fill"></div></div></div>
     <div class="crit-grid" id="m-criterios"></div>
     <div class="modal-actions">
-      <button class="btn btn-green" onclick="goPage('negocios',document.querySelectorAll('.nav-btn')[2]);closeModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Adicionar ao funil
-      </button>
-      <button class="btn btn-blue" onclick="closeModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Ver edital
-      </button>
+      <button class="btn btn-green" onclick="addToFunil();closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar ao funil</button>
+      <button class="btn btn-blue" onclick="closeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Ver edital</button>
       <button class="btn btn-ghost" onclick="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ADICIONAR ══ -->
+<div class="backdrop" id="backdrop-add" onclick="closeAddModal(event)">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-head"><div class="modal-title">Nova dispensa no funil</div><button class="modal-close" onclick="closeAddModal()">×</button></div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="fg"><label>Nome da dispensa</label><input class="search-input" id="add-nome" style="height:38px;width:100%" placeholder="Ex: Material de escritório — Prefeitura de Aracaju/SE"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fg"><label>Valor estimado (R$)</label><input class="search-input" id="add-valor" style="height:38px;width:100%" type="number" placeholder="8400"></div>
+        <div class="fg"><label>Score de decisão (0–10)</label><input class="search-input" id="add-score" style="height:38px;width:100%" type="number" min="0" max="10" step="0.1" placeholder="8.5"></div>
+      </div>
+      <div class="fg"><label>Fase inicial</label>
+        <select id="add-fase" style="width:100%;background:var(--bg3);border:1px solid var(--b2);border-radius:var(--rsm);padding:7px 10px;font-size:13px;color:var(--t1);outline:none">
+          <option value="0">Oportunidade</option><option value="1">Qualificação</option><option value="2">Disputa</option><option value="3">Classificação</option><option value="4">Contrato</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:18px">
+      <button class="btn btn-green" style="flex:1;justify-content:center;height:40px" onclick="confirmAdd()">Adicionar ao funil</button>
+      <button class="btn btn-ghost" onclick="closeAddModal()">Cancelar</button>
     </div>
   </div>
 </div>
@@ -994,136 +657,336 @@ nav{
 </div><!-- #root -->
 
 <script>
-/* ─── DATA ─────────────────────────────────────────────────── */
+/* ─── DATA ──────────────────────────── */
 const licitacoes = [
-  {
-    title:'Aquisição de material de escritório',
-    org:'Prefeitura Municipal de Aracaju / SE · PNCP · Encerra hoje às 18h',
-    score:9.1,
-    criterios:[
-      {l:'Valor estimado',v:'R$ 8.400',ok:true},
-      {l:'ME/EPP exclusivo',v:'Sim',ok:true},
-      {l:'Concorrência',v:'2–3 empresas',ok:true},
-      {l:'Prazo de entrega',v:'10 dias',ok:true},
-      {l:'Margem estimada',v:'~28%',ok:true},
-      {l:'Complexidade',v:'Baixa',ok:true}
+  {title:'Aquisição de material de escritório',org:'Prefeitura Municipal de Aracaju / SE · PNCP · Encerra hoje às 18h',score:9.1,criterios:[{l:'Valor estimado',v:'R$ 8.400',ok:true},{l:'ME/EPP exclusivo',v:'Sim',ok:true},{l:'Concorrência',v:'2–3 empresas',ok:true},{l:'Prazo de entrega',v:'10 dias',ok:true},{l:'Margem estimada',v:'~28%',ok:true},{l:'Complexidade',v:'Baixa',ok:true}]},
+  {title:'Serviços de limpeza para CRAS municipal',org:'Prefeitura de Itabaiana / SE · PNCP · Encerra em 3 dias',score:8.4,criterios:[{l:'Valor estimado',v:'R$ 12.000',ok:true},{l:'ME/EPP exclusivo',v:'Não',ok:false},{l:'Concorrência',v:'3–5 empresas',ok:true},{l:'Prazo de entrega',v:'30 dias',ok:true},{l:'Margem estimada',v:'~22%',ok:true},{l:'Complexidade',v:'Média',ok:false}]},
+  {title:'Suprimentos de informática (toners, papéis)',org:'Universidade Federal de Sergipe — UFS · PNCP · Encerra em 6 dias',score:7.8,criterios:[{l:'Valor estimado',v:'R$ 15.600',ok:true},{l:'ME/EPP exclusivo',v:'Sim',ok:true},{l:'Concorrência',v:'2–4 empresas',ok:true},{l:'Prazo de entrega',v:'15 dias',ok:true},{l:'Margem estimada',v:'~20%',ok:true},{l:'Complexidade',v:'Baixa',ok:true}]},
+  {title:'Manutenção de equipamentos de informática',org:'Câmara Municipal / SE · PNCP · Encerra em 2 dias',score:4.2,criterios:[{l:'Valor estimado',v:'R$ 6.200',ok:true},{l:'ME/EPP exclusivo',v:'Não',ok:false},{l:'Concorrência',v:'8+ empresas',ok:false},{l:'Prazo de entrega',v:'5 dias',ok:false},{l:'Margem estimada',v:'~8%',ok:false},{l:'Complexidade',v:'Alta',ok:false}]}
+];
+
+/* ─── FUNIL DATA ──────────────────── */
+const FASES = [
+  { nome:'Oportunidade', cor:'#4f9eff',
+    tarefas:[
+      {texto:'Escolha da oportunidade (análise de score)',nota:'Verifique score, valor, ME/EPP e prazo'},
+      {texto:'Leitura atenta do edital completo',nota:'Identifique itens, quantidades e exigências'},
+      {texto:'Preparação da documentação de habilitação',nota:'CND, CNPJ, Certidão Trabalhista'},
+      {texto:'Esclarecimento / Impugnação de forma estratégica',nota:'Prazo: normalmente até 3 dias antes da abertura'}
     ]
   },
-  {
-    title:'Serviços de limpeza para CRAS municipal',
-    org:'Prefeitura de Itabaiana / SE · PNCP · Encerra em 3 dias',
-    score:8.4,
-    criterios:[
-      {l:'Valor estimado',v:'R$ 12.000',ok:true},
-      {l:'ME/EPP exclusivo',v:'Não',ok:false},
-      {l:'Concorrência',v:'3–5 empresas',ok:true},
-      {l:'Prazo de entrega',v:'30 dias',ok:true},
-      {l:'Margem estimada',v:'~22%',ok:true},
-      {l:'Complexidade',v:'Média',ok:false}
+  { nome:'Qualificação', cor:'#f5a623',
+    tarefas:[
+      {texto:'Análise do mercado escolhido',nota:'Pesquise fornecedores e preços de mercado'},
+      {texto:'Análise detalhada do histórico de compras',nota:'Consulte PNCP para preços praticados anteriormente'},
+      {texto:'Análise detalhada dos concorrentes',nota:'Veja quem ganhou as últimas disputas similares'},
+      {texto:'Escolha / Negociação com o fornecedor',nota:'Garanta o estoque e o prazo de entrega'}
     ]
   },
-  {
-    title:'Suprimentos de informática (toners, papéis)',
-    org:'Universidade Federal de Sergipe — UFS · PNCP · Encerra em 6 dias',
-    score:7.8,
-    criterios:[
-      {l:'Valor estimado',v:'R$ 15.600',ok:true},
-      {l:'ME/EPP exclusivo',v:'Sim',ok:true},
-      {l:'Concorrência',v:'2–4 empresas',ok:true},
-      {l:'Prazo de entrega',v:'15 dias',ok:true},
-      {l:'Margem estimada',v:'~20%',ok:true},
-      {l:'Complexidade',v:'Baixa',ok:true}
+  { nome:'Disputa', cor:'#a78bfa',
+    tarefas:[
+      {texto:'Composição de preços baseada na estratégia',nota:'Calcule margem mínima e preço competitivo'},
+      {texto:'Cadastramento da proposta no portal de licitação',nota:'PNCP, ComprasNet ou portal do órgão'},
+      {texto:'Participação na etapa de lances',nota:'Fique atento ao horário — lances em tempo real'}
     ]
   },
-  {
-    title:'Manutenção de equipamentos de informática',
-    org:'Câmara Municipal / SE · PNCP · Encerra em 2 dias',
-    score:4.2,
-    criterios:[
-      {l:'Valor estimado',v:'R$ 6.200',ok:true},
-      {l:'ME/EPP exclusivo',v:'Não',ok:false},
-      {l:'Concorrência',v:'8+ empresas',ok:false},
-      {l:'Prazo de entrega',v:'5 dias',ok:false},
-      {l:'Margem estimada',v:'~8%',ok:false},
-      {l:'Complexidade',v:'Alta',ok:false}
+  { nome:'Classificação', cor:'#1fd98a',
+    tarefas:[
+      {texto:'Acompanhamento atento do pregão/disputa',nota:'Monitore o sistema durante toda a sessão'},
+      {texto:'Análise dos concorrentes classificados',nota:'Compare sua proposta com os demais'},
+      {texto:'Recurso / Contrarrazão (se necessário)',nota:'Prazo: normalmente 3 dias úteis após resultado'}
+    ]
+  },
+  { nome:'Contrato', cor:'#22d3ee',
+    tarefas:[
+      {texto:'Aceite e assinatura do contrato/empenho',nota:''},
+      {texto:'Entrega do produto ou execução do serviço',nota:'Respeite prazo e especificações do edital'},
+      {texto:'Emissão da Nota Fiscal',nota:'NF com dados corretos do órgão público'},
+      {texto:'Acompanhamento do pagamento',nota:'Prazo legal de pagamento: até 30 dias'}
     ]
   }
 ];
 
-const allResults = [
-  {i:0,title:'Aquisição de material de escritório — Prefeitura de Aracaju/SE',score:9.1,valor:8400,dias:0,tipo:'mat',mepp:true,best:true,uf:'SE',org:'Prefeitura',margem:78,conc:85,compl:90,mTxt:'~28%',cTxt:'Baixa (2–3)',eTxt:'Baixa'},
-  {i:1,title:'Serviços de limpeza e conservação — CRAS Itabaiana/SE',score:8.4,valor:12000,dias:3,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Prefeitura',margem:62,conc:60,compl:55,mTxt:'~22%',cTxt:'Média (3–5)',eTxt:'Média'},
-  {i:2,title:'Suprimentos de informática — UFS/SE',score:7.8,valor:15600,dias:6,tipo:'mat',mepp:true,best:false,uf:'SE',org:'Federal',margem:58,conc:72,compl:80,mTxt:'~20%',cTxt:'Baixa (2–4)',eTxt:'Baixa'},
-  {i:3,title:'Material de higiene para escolas — SEMED Sergipe',score:7.6,valor:9200,dias:8,tipo:'mat',mepp:false,best:false,uf:'SE',org:'Estadual',margem:55,conc:58,compl:75,mTxt:'~18%',cTxt:'Média (4–6)',eTxt:'Baixa'},
-  {i:3,title:'Manutenção de informática — Câmara Municipal/SE',score:4.2,valor:6200,dias:2,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Câmara',margem:20,conc:15,compl:20,mTxt:'~8%',cTxt:'Alta (8+)',eTxt:'Alta'}
+/* Negócios no funil */
+let funilNegocios = [
+  {id:1, titulo:'Material de escritório — Prefeitura Aracaju/SE', valor:8400, score:9.1, fase:0, tasks:[[false,false,false,false],[false,false,false,false],[false,false,false],[false,false,false],[false,false,false,false]], notas:['','','','','']},
+  {id:2, titulo:'Limpeza CRAS — Itabaiana/SE', valor:12000, score:8.4, fase:1, tasks:[[true,true,true,false],[false,false,false,false],[false,false,false],[false,false,false],[false,false,false,false]], notas:['Edital analisado em 05/06','','','','']},
+  {id:3, titulo:'Higiene escolar — SEMED/SE', valor:9200, score:7.6, fase:2, tasks:[[true,true,true,true],[true,true,true,true],[false,false,false],[false,false,false],[false,false,false,false]], notas:['Concluído','Análise OK','','','']},
+  {id:4, titulo:'Papelaria — SEED/SE', valor:4500, score:8.0, fase:4, tasks:[[true,true,true,true],[true,true,true,true],[true,true,true],[true,true,true],[true,true,false,false]], notas:['','','','','Aguardando pagamento']},
+  {id:5, titulo:'Material limpeza — Prefeitura/SE', valor:7800, score:8.2, fase:4, tasks:[[true,true,true,true],[true,true,true,true],[true,true,true],[true,true,true],[true,true,true,true]], notas:['','','','','Contrato concluído!']}
 ];
 
-/* ─── NAVIGATION ────────────────────────────────────────────── */
+let currentFaseTab = 0;
+let selectedNegocioId = null;
+
+/* ─── NAV ──────────────────────────── */
 function goPage(id, btn) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(btn) btn.classList.add('active');
   if(id==='busca') renderResults();
+  if(id==='negocios'){renderFunil();renderFunilDetail()}
 }
 
-/* ─── MODAL ─────────────────────────────────────────────────── */
+/* ─── DATE ──────────────────────────── */
+function setDate(){
+  const d=new Date();
+  const dias=['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const meses=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+  document.getElementById('greeting-date').textContent=`Bom dia! Hoje é ${dias[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}.`;
+}
+setDate();
+
+/* ─── MODAL ANÁLISE ─────────────────── */
 function openModal(i) {
-  const l = licitacoes[i];
-  document.getElementById('m-title').textContent = l.title;
-  document.getElementById('m-org').textContent = l.org;
-  document.getElementById('m-score-txt').textContent = l.score.toFixed(1)+' / 10';
-  const f = document.getElementById('m-score-fill');
-  f.style.width = (l.score*10)+'%';
-  f.className = 'ms-fill '+(l.score>=7.5?'h':l.score>=5?'m':'l');
-  document.getElementById('m-criterios').innerHTML = l.criterios.map(c=>`
-    <div class="crit">
-      <div class="crit-lbl">${c.l}</div>
-      <div class="crit-val ${c.ok?'ok':'warn'}">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          ${c.ok?'<polyline points="20 6 9 17 4 12"/>' :'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
-        </svg>
-        ${c.v}
-      </div>
-    </div>`).join('');
+  const l=licitacoes[i];
+  document.getElementById('m-title').textContent=l.title;
+  document.getElementById('m-org').textContent=l.org;
+  document.getElementById('m-score-txt').textContent=l.score.toFixed(1)+' / 10';
+  const f=document.getElementById('m-score-fill');
+  f.style.width=(l.score*10)+'%';
+  f.className='ms-fill '+(l.score>=7.5?'h':l.score>=5?'m':'l');
+  document.getElementById('m-criterios').innerHTML=l.criterios.map(c=>`
+    <div class="crit"><div class="crit-lbl">${c.l}</div>
+    <div class="crit-val ${c.ok?'ok':'warn'}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">${c.ok?'<polyline points="20 6 9 17 4 12"/>':'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
+      </svg>${c.v}</div></div>`).join('');
   document.getElementById('backdrop').classList.add('open');
 }
-function closeModal(e) {
-  if(!e || e.target===document.getElementById('backdrop'))
-    document.getElementById('backdrop').classList.remove('open');
+function closeModal(e){if(!e||e.target===document.getElementById('backdrop'))document.getElementById('backdrop').classList.remove('open')}
+function addToFunil(){
+  goPage('negocios',document.querySelectorAll('.nav-btn')[2]);
 }
 
-/* ─── BUSCA ─────────────────────────────────────────────────── */
-let currentSort = 'score';
+/* ─── FUNIL LÓGICA ──────────────────── */
+function setFunilTab(idx, btn){
+  currentFaseTab=idx;
+  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedNegocioId=null;
+  renderFunil();
+  renderFunilDetail();
+}
 
-function renderResults() {
-  const minScore = parseFloat(document.getElementById('f-score').value)||0;
-  const maxValor = parseInt(document.getElementById('f-valor').value)||999999;
-  const filtered = allResults.filter(r=>r.score>=minScore && r.valor<=maxValor);
-  const sorted = [...filtered].sort((a,b)=>{
-    if(currentSort==='score') return b.score-a.score;
-    if(currentSort==='prazo') return a.dias-b.dias;
-    return b.valor-a.valor;
+function getTaskPct(neg, fase){
+  const t=neg.tasks[fase];
+  if(!t||t.length===0) return 0;
+  return Math.round(t.filter(x=>x).length/t.length*100);
+}
+
+function getFasePct(neg){
+  let done=0,total=0;
+  for(let f=0;f<=neg.fase;f++){neg.tasks[f].forEach(t=>{total++;if(t)done++;})}
+  return total>0?Math.round(done/total*100):0;
+}
+
+function renderFunil(){
+  const negs=funilNegocios.filter(n=>n.fase===currentFaseTab);
+  const panel=document.getElementById('funil-list-panel');
+  // update counts
+  for(let i=0;i<5;i++){
+    document.getElementById('tc'+i).textContent=funilNegocios.filter(n=>n.fase===i).length;
+  }
+  let html='';
+  negs.forEach(neg=>{
+    const pct=getTaskPct(neg,currentFaseTab);
+    const cls=neg.id===selectedNegocioId?'fcard selected':'fcard';
+    const fillCls=pct===100?'':'pct<50?zero:partial';
+    html+=`<div class="${cls}" onclick="selectNegocio(${neg.id})">
+      <div class="fcard-top">
+        <div class="fcard-title">${neg.titulo}</div>
+        <span class="score-chip ${neg.score>=7.5?'h':neg.score>=5?'m':'l'}">${neg.score.toFixed(1)}</span>
+      </div>
+      <div class="fcard-meta">
+        <span class="fcard-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>R$ ${neg.valor.toLocaleString('pt-BR')}</span>
+        <span class="pill ${FASES[currentFaseTab].cor==='#4f9eff'?'b':currentFaseTab===1?'a':currentFaseTab===2?'p':'g'}">${FASES[currentFaseTab].nome}</span>
+      </div>
+      <div class="fcard-progress">
+        <div class="fcard-prog-row">
+          <span class="fcard-prog-label">Tarefas desta fase</span>
+          <span class="fcard-prog-pct">${pct}%</span>
+        </div>
+        <div class="fcard-prog-track">
+          <div class="fcard-prog-fill ${pct===100?'':'partial'}" style="width:${pct}%"></div>
+        </div>
+      </div>
+    </div>`;
   });
-  document.getElementById('res-count').textContent = sorted.length+' dispensas';
-  const check = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:12px;height:12px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
-  document.getElementById('results-list').innerHTML = sorted.map(r=>`
+  if(negs.length===0) html=`<div style="text-align:center;color:var(--t3);font-size:13px;padding:40px 0">Nenhuma dispensa nesta fase.<br><br><button class="btn btn-ghost btn-sm" onclick="openAddModal()">+ Adicionar dispensa</button></div>`;
+  html+=`<button class="funil-add-btn" onclick="openAddModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adicionar dispensa nesta fase</button>`;
+  panel.innerHTML=html;
+}
+
+function selectNegocio(id){
+  selectedNegocioId=id;
+  renderFunil();
+  renderFunilDetail();
+}
+
+function renderFunilDetail(){
+  const panel=document.getElementById('funil-detail-panel');
+  if(!selectedNegocioId){
+    panel.innerHTML=`<div class="detail-empty"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Selecione uma dispensa<br>para ver as tarefas e progresso</span></div>`;
+    return;
+  }
+  const neg=funilNegocios.find(n=>n.id===selectedNegocioId);
+  if(!neg) return;
+  const totalDone=neg.tasks.reduce((a,t)=>a+t.filter(x=>x).length,0);
+  const totalAll=neg.tasks.reduce((a,t)=>a+t.length,0);
+  const pctGeral=Math.round(totalDone/totalAll*100);
+  const f=neg.fase;
+  const faseAtual=FASES[f];
+  const tasksF=neg.tasks[f];
+  const pctFase=Math.round(tasksF.filter(x=>x).length/tasksF.length*100);
+  const phaseBars=FASES.map((fa,i)=>`
+    <div class="dp-phase">
+      <div class="dp-phase-bar ${i<f?'done':i===f?'current':'todo'}"></div>
+      <div class="dp-phase-name ${i<f?'done':i===f?'current':''}">
+        ${fa.nome.substring(0,4)}
+      </div>
+    </div>`).join('');
+  const taskRows=faseAtual.tarefas.map((t,ti)=>`
+    <div class="task-item ${tasksF[ti]?'done':''}" onclick="toggleTask(${neg.id},${f},${ti})">
+      <div class="task-cb">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <div class="task-text">${t.texto}</div>
+        ${t.nota?`<div class="task-note">${t.nota}</div>`:''}
+      </div>
+    </div>`).join('');
+  const canAdvance=neg.fase<4&&pctFase===100;
+  const isLast=neg.fase===4;
+  panel.innerHTML=`
+    <div class="detail-head">
+      <div>
+        <div class="detail-title">${neg.titulo}</div>
+        <div class="detail-meta">
+          <span class="detail-meta-item"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>R$ ${neg.valor.toLocaleString('pt-BR')}</span>
+          <span class="detail-meta-item" style="color:${faseAtual.cor}">● ${faseAtual.nome}</span>
+          <span class="score-chip ${neg.score>=7.5?'h':'m'}">${neg.score.toFixed(1)}</span>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button class="btn btn-red btn-sm" onclick="removeNegocio(${neg.id})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>
+      </div>
+    </div>
+
+    <div class="detail-progress">
+      <div class="dp-label">Progresso geral da dispensa</div>
+      <div class="dp-phases">${phaseBars}</div>
+      <div class="dp-pct-row">
+        <div class="dp-pct">${pctGeral}%</div>
+        <div class="dp-pct-sub">${totalDone} de ${totalAll} tarefas concluídas</div>
+      </div>
+    </div>
+
+    <div class="checklist-section">
+      <div class="checklist-phase-title" style="color:${faseAtual.cor}">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Checklist — ${faseAtual.nome}
+        <span class="checklist-phase-pct">${pctFase}%</span>
+      </div>
+      <div class="checklist-phasebar"><div class="checklist-phasebar-fill" style="width:${pctFase}%;background:${faseAtual.cor}"></div></div>
+      <div class="task-list">${taskRows}</div>
+    </div>
+
+    <div class="notes-section">
+      <div class="notes-label"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Notas desta fase</div>
+      <textarea class="notes-textarea" placeholder="Adicione observações, links, contatos..." onchange="saveNota(${neg.id},${f},this.value)">${neg.notas[f]||''}</textarea>
+    </div>
+
+    <div class="phase-advance">
+      <div class="pa-info">
+        ${isLast?'<strong style="color:var(--green)">✓ Contrato concluído!</strong>':canAdvance?`<strong>Todas as tarefas concluídas!</strong> Avançar para <strong>${FASES[f+1].nome}</strong>?`:pctFase<100?`Conclua as tarefas para avançar para <strong>${f<4?FASES[f+1].nome:'Concluído'}</strong>`:''}
+      </div>
+      ${!isLast?`<button class="btn ${canAdvance?'btn-green':'btn-ghost'} btn-sm" ${canAdvance?'':'disabled style="opacity:.4;cursor:not-allowed"'} onclick="advanceFase(${neg.id})">Avançar fase →</button>`:''}
+    </div>`;
+}
+
+function toggleTask(negId, faseIdx, taskIdx){
+  const neg=funilNegocios.find(n=>n.id===negId);
+  if(!neg) return;
+  neg.tasks[faseIdx][taskIdx]=!neg.tasks[faseIdx][taskIdx];
+  renderFunil();
+  renderFunilDetail();
+}
+
+function advanceFase(negId){
+  const neg=funilNegocios.find(n=>n.id===negId);
+  if(!neg||neg.fase>=4) return;
+  neg.fase++;
+  currentFaseTab=neg.fase;
+  document.querySelectorAll('.ftab').forEach((b,i)=>b.classList.toggle('active',i===currentFaseTab));
+  renderFunil();
+  renderFunilDetail();
+}
+
+function removeNegocio(negId){
+  if(!confirm('Remover esta dispensa do funil?')) return;
+  funilNegocios=funilNegocios.filter(n=>n.id!==negId);
+  selectedNegocioId=null;
+  renderFunil();
+  renderFunilDetail();
+}
+
+function saveNota(negId, faseIdx, val){
+  const neg=funilNegocios.find(n=>n.id===negId);
+  if(neg) neg.notas[faseIdx]=val;
+}
+
+function openAddModal(){document.getElementById('backdrop-add').classList.add('open')}
+function closeAddModal(e){if(!e||e.target===document.getElementById('backdrop-add'))document.getElementById('backdrop-add').classList.remove('open')}
+function confirmAdd(){
+  const nome=document.getElementById('add-nome').value.trim();
+  const valor=parseFloat(document.getElementById('add-valor').value)||0;
+  const score=parseFloat(document.getElementById('add-score').value)||5.0;
+  const fase=parseInt(document.getElementById('add-fase').value)||0;
+  if(!nome){alert('Informe o nome da dispensa');return}
+  const newId=Date.now();
+  funilNegocios.push({id:newId,titulo:nome,valor,score,fase,tasks:FASES.map(f=>f.tarefas.map(()=>false)),notas:['','','','','']});
+  closeAddModal();
+  currentFaseTab=fase;
+  document.querySelectorAll('.ftab').forEach((b,i)=>b.classList.toggle('active',i===fase));
+  selectedNegocioId=newId;
+  renderFunil();
+  renderFunilDetail();
+  document.getElementById('add-nome').value='';
+  document.getElementById('add-valor').value='';
+  document.getElementById('add-score').value='';
+}
+
+/* BUSCA */
+const allResults=[
+  {i:0,title:'Aquisição de material de escritório — Prefeitura de Aracaju/SE',score:9.1,valor:8400,dias:0,tipo:'mat',mepp:true,best:true,uf:'SE',org:'Prefeitura',margem:78,conc:85,compl:90,mTxt:'~28%',cTxt:'Baixa (2–3)',eTxt:'Baixa'},
+  {i:1,title:'Serviços de limpeza e conservação — CRAS Itabaiana/SE',score:8.4,valor:12000,dias:3,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Prefeitura',margem:62,conc:60,compl:55,mTxt:'~22%',cTxt:'Média (3–5)',eTxt:'Média'},
+  {i:2,title:'Suprimentos de informática — UFS/SE',score:7.8,valor:15600,dias:6,tipo:'mat',mepp:true,best:false,uf:'SE',org:'Federal',margem:58,conc:72,compl:80,mTxt:'~20%',cTxt:'Baixa (2–4)',eTxt:'Baixa'},
+  {i:3,title:'Material de higiene para escolas — SEMED Sergipe',score:7.6,valor:9200,dias:8,tipo:'mat',mepp:false,best:false,uf:'SE',org:'Estadual',margem:55,conc:58,compl:75,mTxt:'~18%',cTxt:'Média (4–6)',eTxt:'Baixa'},
+  {i:3,title:'Manutenção de informática — Câmara Municipal/SE',score:4.2,valor:6200,dias:2,tipo:'srv',mepp:false,best:false,uf:'SE',org:'Câmara',margem:20,conc:15,compl:20,mTxt:'~8%',cTxt:'Alta (8+)',eTxt:'Alta'}
+];
+let currentSort='score';
+function renderResults(){
+  const minScore=parseFloat(document.getElementById('f-score').value)||0;
+  const maxValor=parseInt(document.getElementById('f-valor').value)||999999;
+  const filtered=allResults.filter(r=>r.score>=minScore&&r.valor<=maxValor);
+  const sorted=[...filtered].sort((a,b)=>{if(currentSort==='score')return b.score-a.score;if(currentSort==='prazo')return a.dias-b.dias;return b.valor-a.valor});
+  document.getElementById('res-count').textContent=sorted.length+' dispensas';
+  const chk=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:10px;height:10px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+  document.getElementById('results-list').innerHTML=sorted.map(r=>`
     <div class="result-card ${r.best?'best':''}" onclick="openModal(${r.i})">
       <div class="rc-top">
         <div class="rc-left">
           ${r.best?`<div class="best-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Melhor oportunidade do dia</div>`:''}
           <div class="rc-title">${r.title}</div>
         </div>
-        <div class="rc-score">
-          <div class="score-big ${r.score>=7.5?'h':r.score>=5?'m':'l'}">${r.score.toFixed(1)}</div>
-          <div class="score-note">score / 10</div>
-        </div>
+        <div class="rc-score"><div class="score-big ${r.score>=7.5?'h':r.score>=5?'m':'l'}">${r.score.toFixed(1)}</div><div class="score-note">score / 10</div></div>
       </div>
       <div class="rc-meta">
         <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${r.dias===0?'Hoje':'Em '+r.dias+' dias'}</span>
         <span class="meta-tag">R$ ${r.valor.toLocaleString('pt-BR')}</span>
         <span class="meta-tag">${r.uf} · ${r.org}</span>
-        ${r.mepp?`<span class="pill g">${check}ME/EPP exclusivo</span>`:''}
+        ${r.mepp?`<span class="pill g">${chk}ME/EPP exclusivo</span>`:''}
         <span class="pill b">${r.tipo==='mat'?'Materiais':'Serviços'}</span>
       </div>
       <div class="bar-rows">
@@ -1132,28 +995,14 @@ function renderResults() {
         <div class="bar-row"><span class="bar-lbl">Complexidade</span><div class="bar-track"><div class="bar-fill ${r.compl>=60?'h':r.compl>=40?'m':'l'}" style="width:${r.compl}%"></div></div><span class="bar-val">${r.eTxt}</span></div>
       </div>
       <div class="rc-actions">
-        <button class="btn btn-green btn-sm" onclick="event.stopPropagation();openModal(${r.i})">Analisar →</button>
+        <button class="btn btn-green btn-sm" onclick="event.stopPropagation();openModal(${r.i})">Analisar</button>
         <button class="btn btn-blue btn-sm" onclick="event.stopPropagation();goPage('negocios',document.querySelectorAll('.nav-btn')[2])">+ Funil</button>
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          PNCP
-        </button>
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation()">PNCP</button>
       </div>
     </div>`).join('');
 }
-
-function setSortResults(type, btn) {
-  currentSort = type;
-  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderResults();
-}
-
-function resetFilters() {
-  document.getElementById('f-score').value = '0';
-  document.getElementById('f-valor').value = '80000';
-  renderResults();
-}
+function setSortResults(type,btn){currentSort=type;document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderResults()}
+function resetFilters(){document.getElementById('f-score').value='0';document.getElementById('f-valor').value='80000';renderResults()}
 
 renderResults();
 </script>
